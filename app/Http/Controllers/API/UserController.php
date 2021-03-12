@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('api');
+        $this->middleware('auth:api');
     }
     /**
      * Display a listing of the resource.
@@ -45,6 +45,17 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth('api')->user();
+        return ['message' => "Success"];
+    }
+    
+    public function profile()
+    {
+        return auth('api')->user();
     }
 
     /**
