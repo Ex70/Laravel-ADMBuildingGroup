@@ -7,6 +7,68 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import moment from 'moment';
+import swal from 'sweetalert2'
+window.swal = swal;
+
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+window.toast = toast;
+
+import { values } from 'lodash';
+import { Form, HasError, AlertError } from 'vform';
+import VueProgressBar from 'vue-progressbar';
+
+window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
+import VueRouter from 'vue-router'
+
+const options = {
+    color: 'rgb(143,255,199)',
+    failedColor: 'red',
+    thickness: '4px',
+    transition: {
+      speed: '0.2s',
+      opacity: '0.6s',
+      termination: 300
+    },
+    autoRevert: true,
+    location: 'top',
+    inverse: false
+  }
+
+Vue.use(VueProgressBar, options)
+
+Vue.use(VueRouter)
+
+let routes = [
+    { path: '/dashboard', component: require("./components/Dashboard.vue").default },
+    { path: '/profile', component: require('./components/Profile.vue').default },
+    { path: '/users', component: require('./components/Users.vue').default }
+]
+
+const router = new VueRouter({
+    mode: 'history',
+    routes, // short for `routes: routes`
+    linkActiveClass: 'active'
+  })
+
+Vue.filter('upText',function(text){
+    return text.charAt(0).toUpperCase() + text.slice(1);
+    //return text.toUpperCase();
+});
+
+Vue.filter('myDate',function(created){
+    return moment(created).format('MMMM Do YYYY');
+});
+
+window.Fire = new Vue();
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,4 +91,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    router
 });
