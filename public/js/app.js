@@ -2386,6 +2386,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2393,22 +2395,21 @@ __webpack_require__.r(__webpack_exports__);
       users: {},
       form: new Form({
         id: '',
-        name: '',
+        nombre: '',
+        usuario: '',
         email: '',
         password: ''
       })
     };
   },
   methods: {
-    updateUser: function updateUser() {
+    actualizarUsuario: function actualizarUsuario() {
       var _this = this;
 
-      //console.log('Editing data');
       this.$Progress.start();
       this.form.put('api/user/' + this.form.id).then(function () {
-        //Success
         $('#addNew').modal('hide');
-        swal.fire('Updated!', 'Information has been updated.', 'success');
+        swal.fire('¡Actualizado!', 'La información ha sido actualizada.', 'success');
 
         _this.$Progress.finish();
 
@@ -2416,8 +2417,9 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function () {
         _this.$Progress.fail();
       });
+      this.form.reset();
     },
-    editModal: function editModal(user) {
+    editarUsuario: function editarUsuario(user) {
       this.editmode = true;
       this.form.reset();
       $('#addNew').modal('show');
@@ -2428,25 +2430,24 @@ __webpack_require__.r(__webpack_exports__);
       this.form.reset();
       $('#addNew').modal('show');
     },
-    deleteUser: function deleteUser(id) {
+    boorarUsuario: function boorarUsuario(id) {
       var _this2 = this;
 
       swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: '¿Estás seguro?',
+        text: "No podrás revertir esto!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Si, Eliminar!'
       }).then(function (result) {
-        //Send request to the server
         if (result.value) {
           _this2.form["delete"]('api/user/' + id).then(function () {
-            swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+            swal.fire('¡Eliminado!', 'El usuario ha sido eliminado.', 'success');
             Fire.$emit('AfterCreate');
           })["catch"](function () {
-            swal("Failed", "There was something wrong.", "warning");
+            swal("Error", "Algo malo sucedió.", "warning");
           });
         }
       });
@@ -2459,7 +2460,7 @@ __webpack_require__.r(__webpack_exports__);
         return _this3.users = data.data;
       });
     },
-    createUser: function createUser() {
+    crearUsuario: function crearUsuario() {
       var _this4 = this;
 
       this.$Progress.start();
@@ -2469,7 +2470,7 @@ __webpack_require__.r(__webpack_exports__);
         toast.fire({
           icon: 'success',
           type: 'success',
-          title: 'User Created  successfully'
+          title: 'Usuario creado'
         });
 
         _this4.$Progress.finish();
@@ -2482,7 +2483,7 @@ __webpack_require__.r(__webpack_exports__);
     this.loadUsers();
     Fire.$on('AfterCreate', function () {
       _this5.loadUsers();
-    }); // setInterval(() => this.loadUsers(), 3000);
+    });
   }
 });
 
@@ -66563,7 +66564,7 @@ var render = function() {
                 "button",
                 { staticClass: "btn btn-success", on: { click: _vm.newModal } },
                 [
-                  _vm._v("Add new "),
+                  _vm._v("Agregar usuario"),
                   _c("i", { staticClass: "fas fa-user-plus fa-wf" })
                 ]
               )
@@ -66580,9 +66581,11 @@ var render = function() {
                   return _c("tr", { key: user.id }, [
                     _c("td", [_vm._v(_vm._s(user.id))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(user.name))]),
+                    _c("td", [_vm._v(_vm._s(user.nombre))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.email)))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.usuario)))]),
                     _vm._v(" "),
                     _vm._m(1, true),
                     _vm._v(" "),
@@ -66597,14 +66600,14 @@ var render = function() {
                           attrs: { href: "#" },
                           on: {
                             click: function($event) {
-                              return _vm.editModal(user)
+                              return _vm.editarUsuario(user)
                             }
                           }
                         },
                         [_c("i", { staticClass: "fa fa-edit" })]
                       ),
                       _vm._v(
-                        "\n                            /\n                            "
+                        "\n                                    /\n                                    "
                       ),
                       _c(
                         "a",
@@ -66612,7 +66615,7 @@ var render = function() {
                           attrs: { href: "#" },
                           on: {
                             click: function($event) {
-                              return _vm.deleteUser(user.id)
+                              return _vm.boorarUsuario(user.id)
                             }
                           }
                         },
@@ -66665,7 +66668,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "addNewLabel" }
                   },
-                  [_vm._v("Add New")]
+                  [_vm._v("Agregar Usuario ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -66682,7 +66685,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "addNewLabel" }
                   },
-                  [_vm._v("Update User's Info")]
+                  [_vm._v("Actualizar información")]
                 ),
                 _vm._v(" "),
                 _vm._m(2)
@@ -66694,12 +66697,35 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      _vm.editmode ? _vm.updateUser() : _vm.createUser()
+                      _vm.editmode
+                        ? _vm.actualizarUsuario()
+                        : _vm.crearUsuario()
                     }
                   }
                 },
                 [
                   _c("div", { staticClass: "modal-body" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.tipo,
+                          expression: "form.tipo"
+                        }
+                      ],
+                      attrs: { type: "hidden", name: "tipo", value: "0" },
+                      domProps: { value: _vm.form.tipo },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "tipo", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
                     _c(
                       "div",
                       { staticClass: "form-group" },
@@ -66709,31 +66735,74 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.name,
-                              expression: "form.name"
+                              value: _vm.form.nombre,
+                              expression: "form.nombre"
                             }
                           ],
                           staticClass: "form-control",
-                          class: { "is-invalid": _vm.form.errors.has("name") },
+                          class: {
+                            "is-invalid": _vm.form.errors.has("nombre")
+                          },
                           attrs: {
                             type: "text",
-                            name: "name",
-                            placeholder: "Name",
-                            id: "name"
+                            name: "nombre",
+                            placeholder: "Nombre",
+                            id: "nombre"
                           },
-                          domProps: { value: _vm.form.name },
+                          domProps: { value: _vm.form.nombre },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.form, "name", $event.target.value)
+                              _vm.$set(_vm.form, "nombre", $event.target.value)
                             }
                           }
                         }),
                         _vm._v(" "),
                         _c("has-error", {
-                          attrs: { form: _vm.form, field: "name" }
+                          attrs: { form: _vm.form, field: "nombre" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.usuario,
+                              expression: "form.usuario"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("usuario")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "usuario",
+                            placeholder: "Usuario",
+                            id: "usuario"
+                          },
+                          domProps: { value: _vm.form.usuario },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "usuario", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "usuario" }
                         })
                       ],
                       1
@@ -66757,7 +66826,7 @@ var render = function() {
                           attrs: {
                             type: "email",
                             name: "email",
-                            placeholder: "Email",
+                            placeholder: "Correo electrónico",
                             id: "email"
                           },
                           domProps: { value: _vm.form.email },
@@ -66798,7 +66867,8 @@ var render = function() {
                           attrs: {
                             type: "password",
                             name: "password",
-                            id: "password"
+                            id: "password",
+                            placeholder: "Contraseña"
                           },
                           domProps: { value: _vm.form.password },
                           on: {
@@ -66830,7 +66900,7 @@ var render = function() {
                         staticClass: "btn btn-secondary",
                         attrs: { type: "button", "data-dismiss": "modal" }
                       },
-                      [_vm._v("Close")]
+                      [_vm._v("Cerrar")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -66847,7 +66917,7 @@ var render = function() {
                         staticClass: "btn btn-success",
                         attrs: { type: "submit" }
                       },
-                      [_vm._v("Update")]
+                      [_vm._v("Actualizar")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -66864,7 +66934,7 @@ var render = function() {
                         staticClass: "btn btn-primary",
                         attrs: { type: "submit" }
                       },
-                      [_vm._v("Create")]
+                      [_vm._v("Crear")]
                     )
                   ])
                 ]
@@ -66885,15 +66955,15 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
+        _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
+        _c("th", [_vm._v("Correo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Type")]),
+        _c("th", [_vm._v("Usuario")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Modify")]),
+        _c("th", [_vm._v("Tipo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Created At")])
+        _c("th", [_vm._v("Creado el")])
       ])
     ])
   },

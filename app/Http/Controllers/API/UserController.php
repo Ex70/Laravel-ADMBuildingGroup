@@ -34,14 +34,24 @@ class UserController extends Controller
         //return $request->all();
         //return ['message' => 'I have ytour data'];
         $this->validate($request,[
-            'name'=>'required|string|max:191',
+            'nombre'=>'required|string|max:191',
+            'usuario'=>'required|string|max:191|unique:users',
             'email'=>'required|string|email|max:191|unique:users',
             'password'=>'required|string|min:6'
+        ],
+        [
+            'nombre.required' => 'Debes ingresar un nombre valido!',
+            'password.required' => 'La contraseña debe tener al menos 6 caracteres',
+            "email.unique" => "El correo proporcionado ya existe",
+            "usuario.unique" => "El usuario proporcionado ya existe",
+            'password.min' => "La contraseña debe tener al menos 6 caracteres"
         ]);
 
         return User::create([
-            'name' => $request['name'],
+            'nombre' => $request['nombre'],
+            'usuario' => $request['usuario'],
             'email' => $request['email'],
+            'tipo' => $request['tipo'],
             'password' => Hash::make($request['password']),
         ]);
 
@@ -52,7 +62,7 @@ class UserController extends Controller
         $user = auth('api')->user();
         return ['message' => "Success"];
     }
-    
+
     public function profile()
     {
         return auth('api')->user();

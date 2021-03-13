@@ -6,83 +6,85 @@
                     <div class="card-header">
                         <h3 class="card-title">Usuarios</h3>
                         <div class="card-tools">
-                            <button class="btn btn-success" @click="newModal">Add new <i class="fas fa-user-plus fa-wf"></i></button>
+                            <button class="btn btn-success" @click="newModal">Agregar usuario<i class="fas fa-user-plus fa-wf"></i></button>
                         </div>
-
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Type</th>
-                                <th>Modify</th>
-                                <th>Created At</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="user in users" :key="user.id">
-                                <td>{{user.id}}</td>
-                                <td>{{user.name}}</td>
-                                <td>{{user.email | upText}}</td>
-                                <td><span class="tag tag-success">Approved</span></td>
-                                <td>{{user.created_at | myDate}}</td>
-                            <td>
-                                <a href="#" @click="editModal(user)">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                /
-                                <a href="#" @click="deleteUser(user.id)">
-                                    <i class="fa fa-trash red"></i>
-                                </a>
-                            </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th>Usuario</th>
+                                    <th>Tipo</th>
+                                    <th>Creado el</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="user in users" :key="user.id">
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.nombre}}</td>
+                                    <td>{{user.email | upText}}</td>
+                                    <td>{{user.usuario | upText}}</td>
+                                    <td><span class="tag tag-success">Approved</span></td>
+                                    <td>{{user.created_at | myDate}}</td>
+                                    <td>
+                                        <a href="#" @click="editarUsuario(user)">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        /
+                                        <a href="#" @click="boorarUsuario(user.id)">
+                                            <i class="fa fa-trash red"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-          </div>
         </div>
-        <!-- Modal -->
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New</h5>
-                    <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update User's Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form @submit.prevent="editmode ? updateUser() : createUser()">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input v-model="form.name" type="text" name="name" placeholder="Name" id="name"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
-                            <has-error :form="form" field="name"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <input v-model="form.email" type="email" name="email" placeholder="Email" id="email"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                            <has-error :form="form" field="email"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <input v-model="form.password" type="password" name="password" id="password"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
-                            <has-error :form="form" field="password"></has-error>
-                        </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Agregar Usuario </h5>
+                        <h5 class="modal-title" v-show="editmode" id="addNewLabel">Actualizar información</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
-                        <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
-                    </div>
-                </form>
+                    <form @submit.prevent="editmode ? actualizarUsuario() : crearUsuario()">
+                        <div class="modal-body">
+                            <input v-model="form.tipo" type="hidden" name="tipo" value="0">
+                            <div class="form-group">
+                                <input v-model="form.nombre" type="text" name="nombre" placeholder="Nombre" id="nombre"
+                                    class="form-control" :class="{ 'is-invalid': form.errors.has('nombre') }">
+                                <has-error :form="form" field="nombre"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <input v-model="form.usuario" type="text" name="usuario" placeholder="Usuario" id="usuario"
+                                    class="form-control" :class="{ 'is-invalid': form.errors.has('usuario') }">
+                                <has-error :form="form" field="usuario"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <input v-model="form.email" type="email" name="email" placeholder="Correo electrónico" id="email"
+                                    class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                                <has-error :form="form" field="email"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <input v-model="form.password" type="password" name="password" id="password" placeholder="Contraseña"
+                                    class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                                <has-error :form="form" field="password"></has-error>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button v-show="editmode" type="submit" class="btn btn-success">Actualizar</button>
+                            <button v-show="!editmode" type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -97,23 +99,22 @@
                 users:{},
                 form: new Form({
                     id: '',
-                    name: '',
+                    nombre: '',
+                    usuario: '',
                     email: '',
                     password: ''
                 })
             }
         },
         methods:{
-            updateUser(){
-                //console.log('Editing data');
+            actualizarUsuario(){
                 this.$Progress.start();
                 this.form.put('api/user/'+this.form.id)
                 .then(()=>{
-                    //Success
                     $('#addNew').modal('hide');
                     swal.fire(
-                        'Updated!',
-                        'Information has been updated.',
+                        '¡Actualizado!',
+                        'La información ha sido actualizada.',
                         'success'
                     )
                     this.$Progress.finish();
@@ -122,8 +123,9 @@
                 .catch(()=>{
                     this.$Progress.fail();
                 });
+                this.form.reset();
             },
-            editModal(user){
+            editarUsuario(user){
                 this.editmode = true;
                 this.form.reset();
                 $('#addNew').modal('show');
@@ -134,36 +136,34 @@
                 this.form.reset();
                 $('#addNew').modal('show');
             },
-            deleteUser(id){
+            boorarUsuario(id){
                 swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: '¿Estás seguro?',
+                    text: "No podrás revertir esto!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Si, Eliminar!'
                     }).then((result) => {
-                        //Send request to the server
                         if(result.value){
                             this.form.delete('api/user/'+id).then(()=>{
                                 swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
+                                    '¡Eliminado!',
+                                    'El usuario ha sido eliminado.',
                                     'success'
                                 )
                                 Fire.$emit('AfterCreate');
                             }).catch(()=>{
-                                swal("Failed", "There was something wrong.","warning");
+                                swal("Error", "Algo malo sucedió.","warning");
                             });
                         }
-
-                    })
+                })
             },
             loadUsers(){
                 axios.get("api/user").then(({data}) => (this.users = data.data));
             },
-            createUser(){
+            crearUsuario(){
                 this.$Progress.start();
                 this.form.post('api/user')
                 .then(()=>{
@@ -172,12 +172,11 @@
                     toast.fire({
                         icon: 'success',
                         type: 'success',
-                        title: 'User Created  successfully'
+                        title: 'Usuario creado'
                     })
                     this.$Progress.finish();
                 })
                 .catch(()=>{
-
                 })
             }
         },
@@ -186,7 +185,6 @@
             Fire.$on('AfterCreate',()=>{
                 this.loadUsers();
             });
-            // setInterval(() => this.loadUsers(), 3000);
         }
     }
 </script>
