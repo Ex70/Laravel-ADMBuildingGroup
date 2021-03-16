@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.-->
@@ -10,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>AdminLTE 3 | Starter</title>
+        <title>Grupo Constructor ADM | Starter</title>
         <link rel="stylesheet" href="/css/app.css">
     </head>
     <body class="hold-transition sidebar-mini">
@@ -32,7 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                 <!-- SEARCH FORM -->
                 <form class="form-inline ml-3">
                     <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control form-control-navbar" type="search" placeholder="Buscar" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-navbar" type="submit">
                                 <i class="fas fa-search"></i>
@@ -46,8 +45,8 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
                 <a href="index3.html" class="brand-link">
-                    <img src="./img/logo.png" alt="ADM Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                    <span class="brand-text font-weight-light">Grupo Constructor ADM</span>
+                    <img src="../img/logo.png" alt="ADM Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">Grupo ADM</span>
                 </a>
                 <!-- Sidebar -->
                 <div class="sidebar">
@@ -68,9 +67,354 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                             <li class="nav-item">
                                 <router-link to="/dashboard" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt blue"></i>
-                                    <p>Dashboard</p>
+                                    <p>Escritorio</p>
                                 </router-link>
                             </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-money-bill-alt green"></i>
+                                    <p>PRESUPUESTO BASE
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/users" class="nav-link">
+                                            <i class="fas fa-chevron-circle-right nav-icon white"></i>
+                                            <p>Importar</p>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/users" class="nav-link">
+                                            <i class="fas fa-chevron-circle-right nav-icon white"></i>
+                                            <p>Consultar</p>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/users" class="nav-link">
+                                            <i class="fas fa-chevron-circle-right nav-icon white"></i>
+                                            <p>Reportes</p>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/users" class="nav-link">
+                                            <i class="fas fa-chevron-circle-right nav-icon white"></i>
+                                            <p>Reportes</p>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-calculator"></i>
+                                    <p>
+                                    PRESUPUESTO CONTROL
+                                    <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/users" class="nav-link">
+                                            <i class="fas fa-users nav-icon"></i>
+                                            <p>Importar</p>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                            Modificar
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Aditivas</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Deductivas</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                            Explosión de insumos
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Generar</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Consultar</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                    PRESUPUESTO CLIENTE
+                                    <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                            Importación
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Autorizar</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Actualizar</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                            Modificar
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Aditivas</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Deductivas</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/users" class="nav-link">
+                                            <i class="fas fa-users nav-icon"></i>
+                                            <p>Estimación</p>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
+                                    <p>
+                                    COMPRAS
+                                    <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-shopping-cart nav-icon"></i>
+                                            <p>
+                                            Orden de compra
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Captura</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Autorización</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-boxes"></i>
+                                    <p>
+                                    INVENTARIOS
+                                    <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                            Por obra
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Captura</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Autorización</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                            Entradas
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Compras</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Recuperación</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Traspaso</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>
+                                            Salidas
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Para Obra</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Merma</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Traspaso</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-file-alt"></i>
+                                    <p>
+                                    REPORTES
+                                    <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-shopping-cart nav-icon"></i>
+                                            <p>
+                                            Financieros
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Por Obra</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Por Cliente</p>
+                                            </a>
+                                            </li>
+                                            <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Generales</p>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-header">CONTROL DE SISTEMA</li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cog green"></i>
@@ -97,6 +441,12 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <router-link to="/profile" class="nav-link">
                                     <i class="nav-icon fas fa-user orange"></i>
                                     <p>Profile</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/estados" class="nav-link">
+                                    <i class="nav-icon fas fa-user orange"></i>
+                                    <p>Estados</p>
                                 </router-link>
                             </li>
                             <li class="nav-item">
@@ -142,7 +492,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                     <!-- To the right -->
                     <div class="float-right d-none d-sm-inline">Anything you want</div>
                     <!-- Default to the left -->
-                    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+                    <strong>Copyright &copy; 2021 <a href="#">Grupo Constructor ADM</a>.</strong> Todos los derechos reservados.
                 </footer>
             </div>
             <!-- ./wrapper -->
