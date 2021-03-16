@@ -442,15 +442,33 @@
                                 </router-link>
                             </li>
                             <li class="nav-item">
+                                <router-link to="/empresas" class="nav-link">
+                                    <i class="nav-icon fas fa-industry orange"></i>
+                                    <p>Empresas</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
                                 <router-link to="/estados" class="nav-link">
-                                    <i class="nav-icon fas fa-user orange"></i>
+                                    <i class="nav-icon fas fa-city orange"></i>
                                     <p>Estados</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/ciudades" class="nav-link">
+                                    <i class="nav-icon fas fa-building orange"></i>
+                                    <p>Ciudades</p>
                                 </router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link to="/modulos" class="nav-link">
                                     <i class="nav-icon fas fa-user orange"></i>
                                     <p>Modulos</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/unidades" class="nav-link">
+                                    <i class="nav-icon fas fa-user orange"></i>
+                                    <p>Unidades</p>
                                 </router-link>
                             </li>
                             <li class="nav-item">

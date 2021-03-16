@@ -53,7 +53,8 @@ let routes = [
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },
     { path: '/estados', component: require('./components/Estados.vue').default },
-    { path: '/modulos', component: require('./components/Modulos.vue').default }
+    { path: '/modulos', component: require('./components/Modulos.vue').default },
+    { path: '/unidades', component: require('./components/Unidades.vue').default }
 ]
 
 const router = new VueRouter({

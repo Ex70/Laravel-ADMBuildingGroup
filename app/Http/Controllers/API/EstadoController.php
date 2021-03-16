@@ -78,7 +78,7 @@ class EstadoController extends Controller
         $estado = Estado::findOrFail($id);
         $this->validate($request,[
             'nombre'=>'required|string|max:191',
-            'clave'=>'required|string|max:4|unique:estados',
+            'clave'=>'required|string|max:4|unique:estados,clave,'.$estado->id,
         ],
         [
             'nombre.required' => 'Debes ingresar un nombre valido!',
