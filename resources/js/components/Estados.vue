@@ -6,7 +6,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Estados</h3>
                         <div class="card-tools">
-                            <button class="btn btn-success" @click="newModal">Agregar estado<i class="fas fa-user-plus fa-wf"></i></button>
+                            <button class="btn btn-success" @click="nuevoModal">Agregar estado  <i class="fas fa-plus fa-wf"></i></button>
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">
@@ -99,20 +99,21 @@
                         'success'
                     )
                     this.$Progress.finish();
+                    this.form.reset();
                     Fire.$emit('AfterCreate');
                 })
                 .catch(()=>{
                     this.$Progress.fail();
+                    this.form.fill(estado);
                 });
-                this.form.reset();
             },
-            editarEstado(user){
+            editarEstado(estado){
                 this.editmode = true;
                 this.form.reset();
                 $('#addNew').modal('show');
-                this.form.fill(user);
+                this.form.fill(estado);
             },
-            newModal(){
+            nuevoModal(){
                 this.editmode = false;
                 this.form.reset();
                 $('#addNew').modal('show');

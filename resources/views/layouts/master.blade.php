@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.-->
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -9,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Grupo Constructor ADM | Starter</title>
+        <title>Grupo Constructor ADM</title>
         <link rel="stylesheet" href="/css/app.css">
     </head>
     <body class="hold-transition sidebar-mini">
@@ -53,10 +51,10 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                            <img src="../img/img-user2.png" class="img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info">
-                            <a href="#" class="d-block">{{Auth::user()->name}}</a>
+                            <a href="#" class="d-block" style="text-transform: capitalize;">{{Auth::user()->nombre}}</a>
                         </div>
                     </div>
                     <!-- Sidebar Menu -->
@@ -112,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-calculator"></i>
+                                    <i class="nav-icon fas fa-calculator orange"></i>
                                     <p>
                                     PRESUPUESTO CONTROL
                                     <i class="right fas fa-angle-left"></i>
@@ -121,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <router-link to="/users" class="nav-link">
-                                            <i class="fas fa-users nav-icon"></i>
+                                            <i class="fas fa-chevron-circle-right nav-icon"></i>
                                             <p>Importar</p>
                                         </router-link>
                                     </li>
@@ -129,7 +127,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Modificar
                                             <i class="right fas fa-angle-left"></i>
@@ -138,13 +136,13 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Aditivas</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Deductivas</p>
                                             </a>
                                             </li>
@@ -154,7 +152,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Explosión de insumos
                                             <i class="right fas fa-angle-left"></i>
@@ -163,13 +161,13 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Generar</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Consultar</p>
                                             </a>
                                             </li>
@@ -179,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-user"></i>
+                                    <i class="nav-icon fas fa-user indigo"></i>
                                     <p>
                                     PRESUPUESTO CLIENTE
                                     <i class="right fas fa-angle-left"></i>
@@ -188,7 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Importación
                                             <i class="right fas fa-angle-left"></i>
@@ -197,13 +195,13 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Autorizar</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Actualizar</p>
                                             </a>
                                             </li>
@@ -213,7 +211,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Modificar
                                             <i class="right fas fa-angle-left"></i>
@@ -222,13 +220,13 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-dot-circle nav-icon"></i>
                                                 <p>Aditivas</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-dot-circle nav-icon"></i>
                                                 <p>Deductivas</p>
                                             </a>
                                             </li>
@@ -246,7 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-shopping-cart"></i>
+                                    <i class="nav-icon fas fa-shopping-cart yellow"></i>
                                     <p>
                                     COMPRAS
                                     <i class="right fas fa-angle-left"></i>
@@ -255,7 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-shopping-cart nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Orden de compra
                                             <i class="right fas fa-angle-left"></i>
@@ -264,13 +262,13 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Captura</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Autorización</p>
                                             </a>
                                             </li>
@@ -280,7 +278,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-boxes"></i>
+                                    <i class="nav-icon fas fa-boxes teal"></i>
                                     <p>
                                     INVENTARIOS
                                     <i class="right fas fa-angle-left"></i>
@@ -289,7 +287,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Por obra
                                             <i class="right fas fa-angle-left"></i>
@@ -298,13 +296,13 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Captura</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Autorización</p>
                                             </a>
                                             </li>
@@ -314,7 +312,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Entradas
                                             <i class="right fas fa-angle-left"></i>
@@ -323,19 +321,19 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Compras</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Recuperación</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Traspaso</p>
                                             </a>
                                             </li>
@@ -345,7 +343,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Salidas
                                             <i class="right fas fa-angle-left"></i>
@@ -354,19 +352,19 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Para Obra</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Merma</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Traspaso</p>
                                             </a>
                                             </li>
@@ -385,7 +383,7 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 <ul class="nav nav-treeview" style="display: none;">
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">
-                                            <i class="far fa-shopping-cart nav-icon"></i>
+                                            <i class="fas fa-circle nav-icon"></i>
                                             <p>
                                             Financieros
                                             <i class="right fas fa-angle-left"></i>
@@ -394,19 +392,19 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Por Obra</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Por Cliente</p>
                                             </a>
                                             </li>
                                             <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
                                                 <p>Generales</p>
                                             </a>
                                             </li>
@@ -450,6 +448,12 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                 </router-link>
                             </li>
                             <li class="nav-item">
+                                <router-link to="/modulos" class="nav-link">
+                                    <i class="nav-icon fas fa-user orange"></i>
+                                    <p>Modulos</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
@@ -490,9 +494,9 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                 <!-- Main Footer -->
                 <footer class="main-footer">
                     <!-- To the right -->
-                    <div class="float-right d-none d-sm-inline">Anything you want</div>
+                    <div class="float-right d-none d-sm-inline"><strong><a href="#">Grupo Constructor ADM</a>.</strong></div>
                     <!-- Default to the left -->
-                    <strong>Copyright &copy; 2021 <a href="#">Grupo Constructor ADM</a>.</strong> Todos los derechos reservados.
+                    <strong>Copyright &copy; 2021.</strong>
                 </footer>
             </div>
             <!-- ./wrapper -->
