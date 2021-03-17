@@ -11,4 +11,8 @@ class Estado extends Model
     protected $fillable = [
         'nombre','clave'
     ];
+
+    public function ciudades(){
+        return $this->hasMany('App\Ciudad','id_estado');
+    }
 }
