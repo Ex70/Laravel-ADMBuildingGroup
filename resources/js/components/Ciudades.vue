@@ -24,7 +24,9 @@
                                     <td>{{ciudad.id}}</td>
                                     <td>{{ciudad.nombre | upText}}</td>
                                     <td>{{ciudad.estado | upText}}</td>
-                                    <td>{{ciudad.clave | upText}}</td>
+                                    <!-- <td>{{ciudad.clave | upText}}</td> -->
+                                    <td>{{claveCorta(ciudad.clave)}}</td>
+                                    <!-- <td>{{(ciudad.clave).substring(0, clave)}}</td> -->
                                     <td>
                                         <a href="#" @click="editarCiudad(ciudad)">
                                             <i class="fa fa-edit"></i>
@@ -51,7 +53,7 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="editmode ? actualizarCiudad() : crearUsuario()">
+                    <form @submit.prevent="editmode ? actualizarCiudad() : crearCiudad()">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input v-model="form.nombre" type="text" name="nombre" placeholder="Nombre" id="nombre"
@@ -62,6 +64,15 @@
                                 <input v-model="form.clave" type="text" name="clave" placeholder="Clave" id="clave"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('clave') }">
                                 <has-error :form="form" field="clave"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="name">Estado</label> -->
+                                <select class="form-control" name="id_estado" style="width: 100%;" type="number" 
+                                    v-model="form.id_estado" :class="{ 'is-invalid': form.errors.has('id_estado') }">
+                                    <option value="">Seleccione estado</option>
+                                    <option v-for="(estado, c) in estados" v-bind:key="c" :value="estado.id">{{estado.nombre}}</option>
+                                </select>
+                                <has-error :form="form" field="id_estado"></has-error>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -82,6 +93,7 @@
             return{
                 editmode: false,
                 ciudades:{},
+                estados:{},
                 form: new Form({
                     id: '',
                     nombre: '',
@@ -92,6 +104,10 @@
             }
         },
         methods:{
+            claveCorta(cadena){
+                let indice = cadena.indexOf("-");
+                return cadena.substring(0, indice);
+            },
             actualizarCiudad(){
                 this.$Progress.start();
                 this.form.put('api/ciudad/'+this.form.id)
@@ -111,11 +127,12 @@
                     this.form.fill(estado);
                 });
             },
-            editarCiudad(estado){
+            editarCiudad(ciudad){
                 this.editmode = true;
+                ciudad.clave = this.claveCorta(ciudad.clave);
                 this.form.reset();
                 $('#addNew').modal('show');
-                this.form.fill(estado);
+                this.form.fill(ciudad);
             },
             nuevoModal(){
                 this.editmode = false;
@@ -133,10 +150,10 @@
                     confirmButtonText: 'Si, Eliminar!'
                     }).then((result) => {
                         if(result.value){
-                            this.form.delete('api/estado/'+id).then(()=>{
+                            this.form.delete('api/ciudad/'+id).then(()=>{
                                 swal.fire(
                                     '¡Eliminado!',
-                                    'El estado ha sido eliminado.',
+                                    'La ciudad ha sido eliminada.',
                                     'success'
                                 )
                                 Fire.$emit('AfterCreate');
@@ -149,16 +166,20 @@
             cargarCiudades(){
                 axios.get("api/ciudad").then(({data}) => (this.ciudades = data));
             },
-            crearUsuario(){
+            cargarEstados(){
+                axios.get("api/estado").then(({data}) => (this.estados = data));
+                console.log(this.estados);
+            },
+            crearCiudad(){
                 this.$Progress.start();
-                this.form.post('api/estado')
+                this.form.post('api/ciudad')
                 .then(()=>{
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide');
                     toast.fire({
                         icon: 'success',
                         type: 'success',
-                        title: 'Estado creado'
+                        title: 'Ciudad creada'
                     })
                     this.$Progress.finish();
                 })
@@ -168,6 +189,7 @@
         },
         mounted() {
             this.cargarCiudades();
+            this.cargarEstados();
             Fire.$on('AfterCreate',()=>{
                 this.cargarCiudades();
             });
