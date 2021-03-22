@@ -102,7 +102,8 @@
                     nombre: '',
                     usuario: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    tipo:0
                 })
             }
         },

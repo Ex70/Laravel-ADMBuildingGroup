@@ -23,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $items= [
+            'All' => '0',
+            'New' => '1',
+            'Expired' => '2'
+        ];
+        return view('home', compact('items'));
+        //return view('home');
     }
 }

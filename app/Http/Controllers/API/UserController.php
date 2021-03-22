@@ -54,7 +54,6 @@ class UserController extends Controller
             'tipo' => $request['tipo'],
             'password' => Hash::make($request['password']),
         ]);
-
     }
 
     public function updateProfile(Request $request)
@@ -91,10 +90,12 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $this->validate($request,[
-            'name'=>'required|string|max:191',
+            'nombre'=>'required|string|max:191',
             'email'=>'required|string|email|max:191|unique:users,email,'.$user->id,
             'password'=>'sometimes|min:6'
         ]);
+
+        $request['password'] = Hash::make($request['password']);;
 
         $user->update($request->all());
         return['message' => 'Updated the user info'];

@@ -9,6 +9,16 @@
 
         <title>Grupo Constructor ADM</title>
         <link rel="stylesheet" href="/css/app.css">
+        <style>
+            .sidebar .nav-link p, .main-sidebar .brand-text, .main-sidebar .logo-xs, .main-sidebar .logo-xl, .sidebar .user-panel .info {
+                transition: margin-left 0.3s linear, opacity 0.3s ease, visibility 0.3s ease;
+                font-size: 0.8em;
+            }
+            .nav-sidebar .menu-open > .nav-treeview {
+                display: block;
+                margin-left: 10px;
+            }
+        </style>
     </head>
     <body class="hold-transition sidebar-mini">
         <div class="wrapper" id="app">
@@ -77,7 +87,7 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <router-link to="/users" class="nav-link">
+                                        <router-link to="/pptobase/importar" class="nav-link">
                                             <i class="fas fa-chevron-circle-right nav-icon white"></i>
                                             <p>Importar</p>
                                         </router-link>
@@ -85,7 +95,7 @@
                                 </ul>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <router-link to="/users" class="nav-link">
+                                        <router-link to="/pptobase/consultar" class="nav-link">
                                             <i class="fas fa-chevron-circle-right nav-icon white"></i>
                                             <p>Consultar</p>
                                         </router-link>
@@ -93,85 +103,10 @@
                                 </ul>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <router-link to="/users" class="nav-link">
+                                        <router-link to="/pptobase/reportes" class="nav-link">
                                             <i class="fas fa-chevron-circle-right nav-icon white"></i>
                                             <p>Reportes</p>
                                         </router-link>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <router-link to="/users" class="nav-link">
-                                            <i class="fas fa-chevron-circle-right nav-icon white"></i>
-                                            <p>Reportes</p>
-                                        </router-link>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-calculator orange"></i>
-                                    <p>
-                                    PRESUPUESTO CONTROL
-                                    <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <router-link to="/users" class="nav-link">
-                                            <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                            <p>Importar</p>
-                                        </router-link>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-treeview" style="display: none;">
-                                    <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link">
-                                            <i class="fas fa-circle nav-icon"></i>
-                                            <p>
-                                            Modificar
-                                            <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Aditivas</p>
-                                            </a>
-                                            </li>
-                                            <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Deductivas</p>
-                                            </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-treeview" style="display: none;">
-                                    <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link">
-                                            <i class="fas fa-circle nav-icon"></i>
-                                            <p>
-                                            Explosión de insumos
-                                            <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Generar</p>
-                                            </a>
-                                            </li>
-                                            <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Consultar</p>
-                                            </a>
-                                            </li>
-                                        </ul>
                                     </li>
                                 </ul>
                             </li>
@@ -194,16 +129,16 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Autorizar</p>
-                                            </a>
+                                                <router-link to="/pptocliente/autorizar" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon white"></i>
+                                                    <p>Autorizar</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Actualizar</p>
-                                            </a>
+                                                <router-link to="/pptocliente/actualizar" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon white"></i>
+                                                    <p>Actualizar</p>
+                                                </router-link>
                                             </li>
                                         </ul>
                                     </li>
@@ -219,26 +154,93 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-dot-circle nav-icon"></i>
-                                                <p>Aditivas</p>
-                                            </a>
+                                                <router-link to="/pptocliente/aditivas" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon white"></i>
+                                                    <p>Aditivas</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-dot-circle nav-icon"></i>
-                                                <p>Deductivas</p>
-                                            </a>
+                                                <router-link to="/pptocliente/deductivas" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon white"></i>
+                                                    <p>Deductivas</p>
+                                                </router-link>
                                             </li>
                                         </ul>
                                     </li>
                                 </ul>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <router-link to="/users" class="nav-link">
+                                        <router-link to="/pptocliente/estimacion" class="nav-link">
                                             <i class="fas fa-users nav-icon"></i>
                                             <p>Estimación</p>
                                         </router-link>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-calculator orange"></i>
+                                    <p>
+                                    PRESUPUESTO CONTROL
+                                    <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/pptocontrol/importar" class="nav-link">
+                                            <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                            <p>Importar</p>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-circle nav-icon"></i>
+                                            <p>
+                                            Modificar
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <router-link to="/pptocontrol/aditivas" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Aditivas</p>
+                                                </router-link>
+                                            </li>
+                                            <li class="nav-item">
+                                                <router-link to="/pptocontrol/deductivas" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Deductivas</p>
+                                                </router-link>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-circle nav-icon"></i>
+                                            <p>
+                                            Explosión de insumos
+                                            <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <router-link to="/pptocontrol/generar" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Generar</p>
+                                                </router-link>
+                                            </li>
+                                            <li class="nav-item">
+                                                <router-link to="/pptocontrol/consultar" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Consultar</p>
+                                                </router-link>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>
@@ -261,16 +263,16 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Captura</p>
-                                            </a>
+                                                <router-link to="/compras/captura" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Captura</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Autorización</p>
-                                            </a>
+                                                <router-link to="/compras/autorizacion" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Autorización</p>
+                                                </router-link>
                                             </li>
                                         </ul>
                                     </li>
@@ -284,29 +286,12 @@
                                     <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
-                                <ul class="nav nav-treeview" style="display: none;">
-                                    <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link">
-                                            <i class="fas fa-circle nav-icon"></i>
-                                            <p>
-                                            Por obra
-                                            <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Captura</p>
-                                            </a>
-                                            </li>
-                                            <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Autorización</p>
-                                            </a>
-                                            </li>
-                                        </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/inventarios/por-obra" class="nav-link">
+                                            <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                            <p>Por obra</p>
+                                        </router-link>
                                     </li>
                                 </ul>
                                 <ul class="nav nav-treeview" style="display: none;">
@@ -320,22 +305,22 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Compras</p>
-                                            </a>
+                                                <router-link to="/inventarios/compras" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Compras</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Recuperación</p>
-                                            </a>
+                                                <router-link to="/inventarios/recuperacion" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Recuperación</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Traspaso</p>
-                                            </a>
+                                                <router-link to="/inventarios/traspaso" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Traspaso</p>
+                                                </router-link>
                                             </li>
                                         </ul>
                                     </li>
@@ -351,24 +336,40 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Para Obra</p>
-                                            </a>
+                                                <router-link to="/inventarios/para-obra" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Para Obra</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Merma</p>
-                                            </a>
+                                                <router-link to="/inventarios/merma" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Merma</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Traspaso</p>
-                                            </a>
+                                                <router-link to="/inventarios/traspasos" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Traspaso</p>
+                                                </router-link>
                                             </li>
                                         </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-money-bill-alt green"></i>
+                                    <p>GASTOS
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/gastos/generales" class="nav-link">
+                                            <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                            <p>Generales</p>
+                                        </router-link>
                                     </li>
                                 </ul>
                             </li>
@@ -391,86 +392,107 @@
                                         </a>
                                         <ul class="nav nav-treeview">
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Por Obra</p>
-                                            </a>
+                                                <router-link to="/reportes/por-obra" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Por Obra</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Por Cliente</p>
-                                            </a>
+                                                <router-link to="/reportes/por-cliente" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Por Cliente</p>
+                                                </router-link>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fas fa-chevron-circle-right nav-icon"></i>
-                                                <p>Generales</p>
-                                            </a>
+                                                <router-link to="/reportes/generales" class="nav-link">
+                                                    <i class="fas fa-chevron-circle-right nav-icon"></i>
+                                                    <p>Generales</p>
+                                                </router-link>
                                             </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-header">CONTROL DE SISTEMA</li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cog green"></i>
-                                    <p>Management
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <router-link to="/users" class="nav-link">
-                                            <i class="fas fa-users nav-icon"></i>
-                                            <p>Users</p>
-                                        </router-link>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/developer" class="nav-link">
-                                    <i class="nav-icon fas fa-user orange"></i>
-                                    <p>Developer</p>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/profile" class="nav-link">
-                                    <i class="nav-icon fas fa-user orange"></i>
-                                    <p>Profile</p>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/empresas" class="nav-link">
-                                    <i class="nav-icon fas fa-industry orange"></i>
-                                    <p>Empresas</p>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/estados" class="nav-link">
-                                    <i class="nav-icon fas fa-city orange"></i>
-                                    <p>Estados</p>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/ciudades" class="nav-link">
-                                    <i class="nav-icon fas fa-building orange"></i>
-                                    <p>Ciudades</p>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link to="/modulos" class="nav-link">
-                                    <i class="nav-icon fas fa-user orange"></i>
-                                    <p>Modulos</p>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
+                            @if(auth()->user()->tipo =='1')
+                                <li class="nav-header">CONTROL DE SISTEMA</li>
+                                <!-- <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-cog green"></i>
+                                        <p>Management
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <router-link to="/users" class="nav-link">
+                                                <i class="fas fa-users nav-icon"></i>
+                                                <p>Users</p>
+                                            </router-link>
+                                        </li>
+                                    </ul>
+                                </li> -->
+                                <li class="nav-item">
+                                    <router-link to="/accesos" class="nav-link">
+                                        <i class="nav-icon fas fa-key"></i>
+                                        <p>Accesos</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link to="/ciudades" class="nav-link">
+                                        <i class="nav-icon fas fa-building"></i>
+                                        <p>Ciudades</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link to="/empresas" class="nav-link">
+                                        <i class="nav-icon fas fa-industry"></i>
+                                        <p>Empresas</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link to="/estados" class="nav-link">
+                                        <i class="nav-icon fas fa-city"></i>
+                                        <p>Estados</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link to="/modulos" class="nav-link">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>Modulos</p>
+                                    </router-link>
+                                </li>
+                                <!-- <li class="nav-item">
+                                    <router-link to="/developer" class="nav-link">
+                                        <i class="nav-icon fas fa-user orange"></i>
+                                        <p>Developer</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link to="/profile" class="nav-link">
+                                        <i class="nav-icon fas fa-user orange"></i>
+                                        <p>Profile</p>
+                                    </router-link>
+                                </li> -->
+                                <li class="nav-item">
+                                    <router-link to="/unidades" class="nav-link">
+                                        <i class="nav-icon fas fa-weight-hanging"></i>
+                                        <p>Unidades</p>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
+                                    <router-link to="/users" class="nav-link">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>Usuarios</p>
+                                    </router-link>
+                                </li>
+                                <!-- <li>{{ auth()->user()->tipo }}</td>         -->
+                            @endif
+                            <!-- <li class="nav-item">
                                 <router-link to="/unidades" class="nav-link">
                                     <i class="nav-icon fas fa-user orange"></i>
                                     <p>Unidades</p>
                                 </router-link>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
@@ -514,7 +536,10 @@
                     <!-- To the right -->
                     <div class="float-right d-none d-sm-inline"><strong><a href="#">Grupo Constructor ADM</a>.</strong></div>
                     <!-- Default to the left -->
-                    <strong>Copyright &copy; 2021.</strong>
+                    <strong>Copyright &copy; 2021.{{$modulo}}</strong>
+                    @foreach ($modulo as $key)
+                        Key: {{ $key->id }}
+                    @endforeach
                 </footer>
             </div>
             <!-- ./wrapper -->

@@ -29,6 +29,10 @@ class EstadoController extends Controller
         return $posts;
     }
 
+    public function listado(){
+        $estados = Estado::all(['id','name']);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

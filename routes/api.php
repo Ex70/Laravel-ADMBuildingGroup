@@ -23,5 +23,6 @@ Route::apiResources(['estado'=>'API\EstadoController']);
 Route::apiResources(['modulo'=>'API\ModuloController']);
 Route::apiResources(['unidad'=>'API\UnidadController']);
 Route::apiResources(['ciudad'=>'API\CiudadController']);
+Route::apiResources(['acceso'=>'API\AccesoController']);
 
 Route::Get('profile','API\UserController@profile');
