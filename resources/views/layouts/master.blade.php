@@ -64,7 +64,10 @@
                             <img src="../img/img-user2.png" class="img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info">
-                            <a href="#" class="d-block" style="text-transform: capitalize;">{{Auth::user()->nombre}}</a>
+                                    <router-link to="/profile" class="d-block">
+                                        <p style="text-transform: capitalize;">{{Auth::user()->nombre}}</p>
+                                    </router-link>
+                            <!-- <a href="#" class="d-block" style="text-transform: capitalize;">{{Auth::user()->nombre}}</a> -->
                         </div>
                     </div>
                     <!-- Sidebar Menu -->
@@ -515,7 +518,7 @@
                     <!-- Main content -->
                     <div class="content">
                         <div class="container-fluid">
-                            <router-view></router-view>
+                            <router-view :user="{{ Auth::user() }}"></router-view>
                             <vue-progress-bar></vue-progress-bar>
                         </div><!-- /.container-fluid -->
                     </div>
@@ -536,10 +539,7 @@
                     <!-- To the right -->
                     <div class="float-right d-none d-sm-inline"><strong><a href="#">Grupo Constructor ADM</a>.</strong></div>
                     <!-- Default to the left -->
-                    <strong>Copyright &copy; 2021.{{$modulo}}</strong>
-                    @foreach ($modulo as $key)
-                        Key: {{ $key->id }}
-                    @endforeach
+                    <strong>Copyright &copy; 2021.</strong>
                 </footer>
             </div>
             <!-- ./wrapper -->

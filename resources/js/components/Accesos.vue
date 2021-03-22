@@ -2,51 +2,48 @@
     <div class="container">
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title">Asignación de Accesos</h3>
+                <h3 class="card-title">Asignación de Accesos - {{user.usuario}}</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <form role="form">
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Custom Select</label>
+                                <label>PRESUPUESTO BASE</label>
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                        <label class="custom-control-label" for="customSwitch1">Toggle this custom switch element</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                                        <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>
-                                        </div>
+                                        <label class="custom-control-label" for="customSwitch1">Importar</label>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                        <label class="custom-control-label" for="customSwitch2">Consultar</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                        <label class="custom-control-label" for="customSwitch3">Reportes</label>
+                                    </div>
+                                </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Custom Select Disabled</label>
+                                <label>PRESUPUESTO CLIENTE</label><br>
+                                <label>Importación</label>
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch4">
+                                        <label class="custom-control-label" for="customSwitch4">Autorizar</label>
+                                    </div>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch5">
+                                        <label class="custom-control-label" for="customSwitch5">Actualizar</label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                        <label class="custom-control-label" for="customSwitch1">Toggle this custom switch element</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                        <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" disabled="" id="customSwitch2">
-                        <label class="custom-control-label" for="customSwitch2">Disabled custom switch element</label>
                         </div>
                     </div>
                 </form>
@@ -98,6 +95,7 @@
 
 <script>
     export default {
+        props : ['user'],
         data(){
             return{
                 editmode: false,
