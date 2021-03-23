@@ -20,7 +20,7 @@
             }
         </style>
     </head>
-    <body class="hold-transition sidebar-mini">
+    <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
         <div class="wrapper" id="app">
         <!-- Navbar -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
