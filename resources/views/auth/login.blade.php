@@ -37,6 +37,16 @@
                         </span>
                     @enderror
                 </div>
+                <div class="input-group mb-3">
+                    <select class="form-control" name="empresa_id">
+                        <option>Seleccione empresa</option>
+                        @foreach ($items as $key => $value)
+                            <option value="{{ $key }}" {{ ( $key == $id) ? 'selected' : '' }}> 
+                                {{ $value }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="row">
                     <!-- /.col -->
                     <div class="col-7">

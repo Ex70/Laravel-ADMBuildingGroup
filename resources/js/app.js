@@ -48,9 +48,17 @@ Vue.use(VueProgressBar, options)
 Vue.use(VueRouter)
 
 let routes = [
+    {
+        path: '/perfilEmpresa/:empresa',
+        name: 'perfilEmpresa',
+        props: true,
+        component: require("./components/Empresa.vue").default
+    },
     { path: '/dashboard', component: require("./components/Dashboard.vue").default },
     { path: '/home', component: require("./components/Dashboard.vue").default },
     { path: '/developer', component: require("./components/Developer.vue").default },
+    // { path: '/perfilEmpresa', component: require('./components/Empresa.vue').default },
+    { path: '/empresas', component: require('./components/Empresas.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },
     { path: '/estados', component: require('./components/Estados.vue').default },
