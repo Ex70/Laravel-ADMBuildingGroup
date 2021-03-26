@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -50,12 +51,16 @@ class LoginController extends Controller
         $this->validate($request, [
             'usuario' => 'required',
             'password' => 'required',
+            'empresa_id' => 'required',
         ]);
 
         $fieldType = filter_var($request->usuario, FILTER_VALIDATE_EMAIL) ? 'email' : 'usuario';
         if(auth()->attempt(array($fieldType => $input['usuario'], 'password' => $input['password'])))
         {
-            return redirect()->route('home');
+            Session::put('empresa',$request['empresa_id']);
+            $empresa = $request['empresa_id'];
+            return view('home',compact('empresa'));
+            //return redirect()->route('home')->with( [ 'empresa' => $request['empresa_id']] );;
         }else{
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');

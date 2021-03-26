@@ -20353,10 +20353,10 @@ html.maximized-card {
   padding: 20px;
 }
 
-.login-card-body .input-group .form-control,
+/* .login-card-body .input-group .form-control,
 .register-card-body .input-group .form-control {
   border-right: 0;
-}
+} */
 
 .login-card-body .input-group .form-control:focus,
 .register-card-body .input-group .form-control:focus {

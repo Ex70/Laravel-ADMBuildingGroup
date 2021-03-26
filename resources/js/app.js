@@ -54,7 +54,13 @@ let routes = [
         props: true,
         component: require("./components/Empresa.vue").default
     },
-    { path: '/dashboard', component: require("./components/Dashboard.vue").default },
+    {
+        path: '/dashboard',
+        name: 'idEmpresa',
+        props: true,
+        component: require("./components/Dashboard.vue").default
+    },
+    // { path: '/dashboard', component: require("./components/Dashboard.vue").default },
     { path: '/home', component: require("./components/Dashboard.vue").default },
     { path: '/developer', component: require("./components/Developer.vue").default },
     // { path: '/perfilEmpresa', component: require('./components/Empresa.vue').default },

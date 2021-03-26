@@ -8,7 +8,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                    <li class="breadcrumb-item active">Escritorio</li>
+                    <li class="breadcrumb-item active">Escritorio {{empresa}} {{Session::get('empresa')}}</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -270,6 +270,7 @@
 
 <script>
     export default {
+        props: ['empresa'],
         mounted() {
             console.log('Component mounted.')
         }

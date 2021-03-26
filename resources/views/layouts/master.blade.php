@@ -76,10 +76,14 @@
                         <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                             <li class="nav-item">
-                                <router-link to="/dashboard" class="nav-link">
+                                <router-link :to="{ name: 'idEmpresa', params: {empresa: {{Session::get('empresa')}} } }">
                                     <i class="nav-icon fas fa-tachometer-alt blue"></i>
                                     <p>Escritorio</p>
                                 </router-link>
+                                <!-- <router-link to="/dashboard" class="nav-link">
+                                    <i class="nav-icon fas fa-tachometer-alt blue"></i>
+                                    <p>Escritorio</p>
+                                </router-link> -->
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
@@ -539,7 +543,7 @@
                     <!-- To the right -->
                     <div class="float-right d-none d-sm-inline"><strong><a href="#">Grupo Constructor ADM</a>.</strong></div>
                     <!-- Default to the left -->
-                    <strong>Copyright &copy; 2021.</strong>
+                    <strong>Copyright &copy; 2021. Empresa: {{Session::get('empresa')}}</strong>
                 </footer>
             </div>
             <!-- ./wrapper -->
