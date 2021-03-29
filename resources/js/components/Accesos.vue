@@ -4,12 +4,22 @@
             <div class="card-header">
                 <h3 class="card-title">Asignación de Accesos - {{user.usuario}}</h3>
             </div>
+            <div class="form-group">
+                <label>Usuarios</label>
+                <select class="form-control" name="id_usuario" style="width: 100%;" type="number" v-model="form.id_usuario" :class="{ 'is-invalid': form.errors.has('id_usuario') }"> <option value="">Seleccionar usuario</option> <option v-for="(usuario, c) in usuarios" v-bind:key="c" :value="usuario.id">{{usuario.usuario}}</option>
+                </select>
+                <has-error :form="form" field="id_usuario"></has-error>
+            </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <form role="form">
                     <div class="row">
                         <div class="col-sm-6">
                                 <label>PRESUPUESTO BASE</label>
+                                <div class="custom-control">
+                                    <input v-model="form.importar" type="checkbox" value="1.1">
+                                    <label>Importar</label><br/><br/>
+                                </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="customSwitch1">
@@ -45,6 +55,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <button @click.prevent="crearAccesos" type="submit" class="btn btn-success">Asignar permisos</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -59,7 +72,7 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="editmode ? actualizarCiudad() : crearCiudad()">
+                    <form @submit.prevent="editmode ? actualizarCiudad() : crearAccesos()">
                         <div class="modal-body">
                             <div class="form-group">
                                 <input v-model="form.nombre" type="text" name="nombre" placeholder="Nombre" id="nombre"
@@ -102,6 +115,7 @@
                 accesos:{},
                 ciudades:{},
                 estados:{},
+                usuarios:{},
                 form: new Form({
                     id: '',
                     nombre: '',
@@ -178,9 +192,13 @@
                 axios.get("api/estado").then(({data}) => (this.estados = data));
                 console.log(this.estados);
             },
-            crearCiudad(){
+            cargarUsuarios(){
+                axios.get("api/obtenerUsuarios").then(({data}) => (this.usuarios = data));
+                console.log(this.usuarios);
+            },
+            crearAccesos(){
                 this.$Progress.start();
-                this.form.post('api/ciudad')
+                this.form.post('api/accesos')
                 .then(()=>{
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide');
@@ -198,6 +216,7 @@
         mounted() {
             this.cargarAccesos();
             this.cargarEstados();
+            this.cargarUsuarios();
             Fire.$on('AfterCreate',()=>{
                 this.cargarAccesos();
             });

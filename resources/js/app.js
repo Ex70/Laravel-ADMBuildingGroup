@@ -60,7 +60,7 @@ let routes = [
         props: true,
         component: require("./components/Dashboard.vue").default
     },
-    // { path: '/dashboard', component: require("./components/Dashboard.vue").default },
+    { path: '/usuario', component: require("./components/Usuario.vue").default },
     { path: '/home', component: require("./components/Dashboard.vue").default },
     { path: '/developer', component: require("./components/Developer.vue").default },
     // { path: '/perfilEmpresa', component: require('./components/Empresa.vue').default },

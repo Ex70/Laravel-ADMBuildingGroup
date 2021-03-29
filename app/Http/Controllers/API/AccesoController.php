@@ -28,7 +28,7 @@ class AccesoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

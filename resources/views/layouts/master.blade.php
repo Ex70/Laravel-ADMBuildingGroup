@@ -64,7 +64,7 @@
                             <img src="../img/img-user2.png" class="img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info">
-                                    <router-link to="/profile" class="d-block">
+                                    <router-link to="/usuario" class="d-block">
                                         <p style="text-transform: capitalize;">{{Auth::user()->nombre}}</p>
                                     </router-link>
                             <!-- <a href="#" class="d-block" style="text-transform: capitalize;">{{Auth::user()->nombre}}</a> -->
@@ -76,7 +76,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                             <li class="nav-item">
-                                <router-link :to="{ name: 'idEmpresa', params: {empresa: {{Session::get('empresa')}} } }">
+                                <router-link :to="{ name: 'idEmpresa', params: {empresa: {{Session::get('empresa')}}}}">
                                     <i class="nav-icon fas fa-tachometer-alt blue"></i>
                                     <p>Escritorio</p>
                                 </router-link>

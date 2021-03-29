@@ -62,6 +62,11 @@ class UserController extends Controller
         return ['message' => "Success"];
     }
 
+    public function obtenerUsuarios(){
+        $usuarios = User::pluck('usuario', 'id');
+        return $usuarios;
+    }
+
     public function profile()
     {
         return auth('api')->user();
