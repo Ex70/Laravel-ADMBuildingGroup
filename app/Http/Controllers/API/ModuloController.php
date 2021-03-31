@@ -4,10 +4,18 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Modulo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ModuloController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('api');
+        $this->user = Auth::user();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,12 +23,7 @@ class ModuloController extends Controller
      */
     public function index()
     {
-        //return Estado::latest();
-        //return Estado::orderBy('id', 'DESC')->get();
-        //$estados = Estado::all();
-        //return response()->json($estados);
         $modulos = Modulo::orderBy('id', 'ASC')->get();
-        //$estados = Estado::all()->orderBy('id','DESC')->toArray();
         return $modulos;
     }
 
@@ -32,8 +35,6 @@ class ModuloController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
-        //return ['message' => 'I have ytour data'];
         $this->validate($request,[
             'nombre'=>'required|string|max:191',
             'clave'=>'required|string|max:10|unique:modulos',
@@ -46,11 +47,16 @@ class ModuloController extends Controller
             "clave.unique" => "La clave de modulo proporcionada ya existe"
         ]);
 
-        return Modulo::create([
+        $user = auth('api')->user();
+        $fecha = Carbon::now()->setTimezone('America/Mexico_City');
+        $modulo = Modulo::create([
             'nombre' => $request['nombre'],
             'clave' => $request['clave'],
             'vista' => $request['vista'],
         ]);
+        $data = "[".$fecha."] El usuario " .$user->usuario. " agregó el módulo " .$request->nombre. " con los siguientes datos: " .$modulo;
+        Storage::append('logs.txt', $data);
+        return $modulo;
     }
 
     /**
@@ -86,7 +92,11 @@ class ModuloController extends Controller
             "clave.unique" => "La clave de modulo proporcionada ya existe"
         ]);
         $modulo->update($request->all());
-        return['message' => 'Información actualizada del modulo'];
+        $user = auth('api')->user();
+        $fecha = Carbon::now()->setTimezone('America/Mexico_City');
+        $data = "[".$fecha."] El usuario " .$user->usuario. " actualizó el módulo " .$request->nombre. " con los siguientes datos: " .$modulo;
+        Storage::append('logs.txt', $data);
+        return['message' => 'Informacion actualizada del modulo'];
     }
 
     /**
@@ -99,6 +109,10 @@ class ModuloController extends Controller
     {
         $modulo = Modulo::findOrFail($id);
         $modulo->delete();
+        $user = auth('api')->user();
+        $fecha = Carbon::now()->setTimezone('America/Mexico_City');
+        $data = "[".$fecha."] El usuario " .$user->usuario. " eliminó el módulo " .$modulo->nombre. " que contenía los siguientes datos: " .$modulo;
+        Storage::append('logs.txt', $data);
         return['message' => 'Modulo Eliminado'];
     }
 }
