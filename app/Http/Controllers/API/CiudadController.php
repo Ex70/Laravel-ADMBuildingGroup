@@ -5,18 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Ciudad;
 use App\Estado;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
-class CiudadController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+class CiudadController extends Controller{
+    public function index(){
         $ciudades = DB::table('ciudades')
             ->join('estados', 'estados.id', '=', 'ciudades.id_estado')
             ->select('ciudades.*','estados.nombre as estado')
@@ -24,14 +19,7 @@ class CiudadController extends Controller
         return $ciudades;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $this->validate($request,[
             'nombre'=>'required|string|max:191',
             'clave'=>'required|string|max:4|unique:ciudades',
@@ -40,37 +28,25 @@ class CiudadController extends Controller
             'nombre.required' => 'Debes ingresar un nombre valido!',
             "clave.unique" => "La clave de ciudad proporcionada ya existe"
         ]);
-
         $claveEstado = Estado::select('clave')->where('id', $request['id_estado'])->first();
         $clave = $request['clave']."-".$claveEstado->clave;
-
-        return Ciudad::create([
+        $user = auth('api')->user();
+        $fecha = Carbon::now()->setTimezone('America/Mexico_City');
+        $ciudad = Ciudad::create([
             'id_estado' => $request['id_estado'],
             'nombre' => $request['nombre'],
             'clave' => $clave,
         ]);
+        $data = "[".$fecha."] El usuario " .$user->usuario. " agregó la ciudad " .$request->nombre. " con los siguientes datos: " .$ciudad;
+        Storage::append('logs.txt', $data);
+        return $ciudad;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
+    public function show($id){
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $ciudad = Ciudad::findOrFail($id);
         $this->validate($request,[
             'nombre'=>'required|string|max:191',
@@ -85,19 +61,20 @@ class CiudadController extends Controller
         $clave = $request['clave']."-".$claveEstado->clave;
         $request['clave'] = $clave;
         $ciudad->update($request->all());
+        $user = auth('api')->user();
+        $fecha = Carbon::now()->setTimezone('America/Mexico_City');
+        $data = "[".$fecha."] El usuario " .$user->usuario. " actualizó la ciudad " .$request->nombre. " con los siguientes datos: " .$ciudad;
+        Storage::append('logs.txt', $data);
         return['message' => 'Actualización de la información del estado'];
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
+    public function destroy($id){
         $ciudad = Ciudad::findOrFail($id);
         $ciudad->delete();
+        $user = auth('api')->user();
+        $fecha = Carbon::now()->setTimezone('America/Mexico_City');
+        $data = "[".$fecha."] El usuario " .$user->usuario. " eliminó la ciudad " .$ciudad->nombre. " que contenía los siguientes datos: " .$ciudad;
+        Storage::append('logs.txt', $data);
         return['message' => 'Ciudad Eliminada'];
     }
 }
