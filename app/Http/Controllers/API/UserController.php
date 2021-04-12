@@ -16,7 +16,9 @@ class UserController extends Controller
     }
 
     public function index(){
-        return User::latest()->paginate(10);
+        // $users = User::orderBy('id', 'ASC')->get();
+        // return $users;
+        return User::latest()->paginate(20);
     }
 
     public function store(Request $request){
@@ -45,6 +47,10 @@ class UserController extends Controller
         $data = "[".$fecha."] El usuario " .$user->usuario. " agregó el módulo " .$request->nombre. " con los siguientes datos: " .$usuario;
         Storage::append('logs.txt', $data);
         return $usuario;
+    }
+
+    public function logueado(){
+        return auth('api')->user()->id;
     }
 
     public function updateProfile(Request $request){

@@ -22,10 +22,12 @@ class CiudadController extends Controller{
     public function store(Request $request){
         $this->validate($request,[
             'nombre'=>'required|string|max:191',
+            'nombre' => 'regex:/^[a-zA-Z ]+$/',
             'clave'=>'required|string|max:4|unique:ciudades',
         ],
         [
             'nombre.required' => 'Debes ingresar un nombre valido!',
+            'nombre.regex' => 'EL nombre la ciudad solo debe contener letras',
             "clave.unique" => "La clave de ciudad proporcionada ya existe"
         ]);
         $claveEstado = Estado::select('clave')->where('id', $request['id_estado'])->first();

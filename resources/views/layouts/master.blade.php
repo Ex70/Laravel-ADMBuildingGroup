@@ -8,7 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Grupo Constructor ADM</title>
-        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="css/app.css">
         <style>
             .sidebar .nav-link p, .main-sidebar .brand-text, .main-sidebar .logo-xs, .main-sidebar .logo-xl, .sidebar .user-panel .info {
                 transition: margin-left 0.3s linear, opacity 0.3s ease, visibility 0.3s ease;
@@ -76,7 +76,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                             <li class="nav-item">
-                                <router-link :to="{ name: 'idEmpresa', params: {empresa: {{Session::get('empresa')}}}}">
+                                <router-link class="nav-link" :to="{ name: 'idEmpresa', params: {empresa: {{Session::get('empresa')}}}}">
                                     <i class="nav-icon fas fa-tachometer-alt blue"></i>
                                     <p>Escritorio</p>
                                 </router-link>
@@ -439,7 +439,7 @@
                                     </ul>
                                 </li> -->
                                 <li class="nav-item">
-                                    <router-link to="/accesos" class="nav-link">
+                                    <router-link to="/accesos" :user="{{ Auth::user() }}" class="nav-link">
                                         <i class="nav-icon fas fa-key"></i>
                                         <p>Accesos</p>
                                     </router-link>
@@ -547,6 +547,6 @@
                 </footer>
             </div>
             <!-- ./wrapper -->
-        <script src="/js/app.js"></script>
+        <script src="js/app.js"></script>
     </body>
 </html>

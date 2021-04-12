@@ -29,3 +29,4 @@ Route::apiResources(['empresa'=>'API\EmpresaController']);
 Route::get('profile','API\UserController@profile');
 Route::get('empresa/{id}','API\EmpresaController@show');
 Route::get('obtenerUsuarios','API\UserController@obtenerUsuarios');
+Route::get('modulosAccesos','API\ModuloController@modulosAccesos');

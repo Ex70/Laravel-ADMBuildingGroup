@@ -16,42 +16,27 @@
                     <div class="row">
                         <div class="col-sm-6">
                                 <label>PRESUPUESTO BASE</label>
-                                <div class="custom-control">
-                                    <input v-model="form.importar" type="checkbox" value="1.1">
-                                    <label>Importar</label><br/><br/>
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                        <label class="custom-control-label" for="customSwitch1">Importar</label>
+                                <div v-for="(modulo, c) in modulos" v-bind:key="c">
+                                    <div class="custom-control" v-if="user.id==modulo.id_usuario || modulo.id_usuario==NULL">
+                                        <label v-if="modulo.clave.length == 1">modulo.nombre</label>
+                                        {{modulo.clave.length}}
+                                        <!-- <div class="custom-control" v-if="acceso.id_modulo == 1 || index == 3"> -->
+                                        <input :id=concatenar+modulo.id :v-model=concatenar+modulo.id type="checkbox" checked=modulo.id_usuario :checked="modulo.id_usuario==user.id ? checked=true : checked=false">
+                                        <label>{{modulo.nombre}}</label><br/><br/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch2">
-                                        <label class="custom-control-label" for="customSwitch2">Consultar</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                                        <label class="custom-control-label" for="customSwitch3">Reportes</label>
-                                    </div>
-                                </div>
+
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>PRESUPUESTO CLIENTE</label><br>
                                 <label>Importación</label>
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch4">
-                                        <label class="custom-control-label" for="customSwitch4">Autorizar</label>
+                                <div id='example-3'>
+                                    <div v-for="(item, index) in names" :key="index">
+                                        <input type="checkbox" :id="item.name" v-model="item.checked">
+                                        <label :for="item.name">{{ item.name }}</label>
                                     </div>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch5">
-                                        <label class="custom-control-label" for="customSwitch5">Actualizar</label>
-                                    </div>
+                                    <span>Checked names: {{ checkedNames }}</span>
                                 </div>
                             </div>
                         </div>
@@ -116,13 +101,28 @@
                 ciudades:{},
                 estados:{},
                 usuarios:{},
+                modulos:{},
                 form: new Form({
                     id: '',
+                    pruebas:[],
+                    1: '',
                     nombre: '',
                     clave: '',
                     estado: '',
-                    id_estado: ''
-                })
+                    id_estado: '',
+                    id_usuario: '',
+                    id_modulo: ''
+                }),
+                names: [{
+                    name: 'jack',
+                    checked: true
+                }, {
+                    name: 'john',
+                    checked: true
+                }, {
+                    name: 'mike',
+                    checked: false
+                }]
             }
         },
         methods:{
@@ -186,17 +186,31 @@
                 })
             },
             cargarAccesos(){
-                axios.get("api/acceso").then(({data}) => (this.accesos = data));
+                axios.get("api/acceso").then(({data}) => (this.accesos = data.data));
             },
             cargarEstados(){
                 axios.get("api/estado").then(({data}) => (this.estados = data));
                 console.log(this.estados);
             },
             cargarUsuarios(){
-                axios.get("api/obtenerUsuarios").then(({data}) => (this.usuarios = data));
+                axios.get("api/user").then(({data}) => (this.usuarios = data));
                 console.log(this.usuarios);
+            },cargarModulos(){
+                axios.get("api/modulosAccesos").then(({data}) => (this.modulos = data));
+                console.log(this.modulos);
             },
             crearAccesos(){
+                var c = document.getElementById('form.1');
+                // var d=document.getElementById('terms_div');
+                if (c.checked) {
+                    //c= c.slice(c.lastIndexOf('.') + 1);
+                    c = c.id;
+                    console.log(c);
+                    console.log("Seleccionado "+c);
+                    c = "this."+c;
+                    console.log("Seleccionado "+c);
+                    this.form.pruebas.push(true);
+                }else{console.log("No seleccionado")}
                 this.$Progress.start();
                 this.form.post('api/accesos')
                 .then(()=>{
@@ -214,12 +228,21 @@
             }
         },
         mounted() {
+            this.cargarModulos();
             this.cargarAccesos();
             this.cargarEstados();
             this.cargarUsuarios();
             Fire.$on('AfterCreate',()=>{
                 this.cargarAccesos();
             });
+        },
+        computed: {
+            checkedNames () {
+                return this.names.filter(item => item.checked).map(name => name.name)
+            },
+            concatenar(){
+                return "form.";
+            }
         }
     }
 </script>

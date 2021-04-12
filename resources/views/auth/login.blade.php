@@ -39,7 +39,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <select class="form-control" name="empresa_id">
-                        <option>Seleccione empresa</option>
+                        <option value="">Seleccione empresa</option>
                         @foreach ($items as $key => $value)
                             <option value="{{ $key }}" {{ ( $key == $id) ? 'selected' : '' }}> 
                                 {{ $value }}

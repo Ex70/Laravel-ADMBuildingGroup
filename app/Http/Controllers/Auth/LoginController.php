@@ -51,7 +51,10 @@ class LoginController extends Controller
         $this->validate($request, [
             'usuario' => 'required',
             'password' => 'required',
-            'empresa_id' => 'required',
+            'empresa_id' => 'nullable|required',
+        ],
+        [
+            'empresa_id.nullable' => 'Debe seleccionar una empresa!',
         ]);
 
         $fieldType = filter_var($request->usuario, FILTER_VALIDATE_EMAIL) ? 'email' : 'usuario';

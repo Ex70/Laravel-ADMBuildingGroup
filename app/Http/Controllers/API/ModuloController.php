@@ -11,8 +11,18 @@ use Illuminate\Support\Facades\Storage;
 
 class ModuloController extends Controller{
     public function index(){
-        $modulos = Modulo::orderBy('id', 'ASC')->get();
+        $modulos = Modulo::orderBy('clave', 'ASC')->get();
         return $modulos;
+    }
+
+    public function modulosAccesos(){
+        $Usuario = auth('api')->user()->id;
+        $modulo = Modulo::select('*')
+        ->orderBy('modulos.clave', 'ASC')
+        ->leftJoin("accesos","accesos.id_modulo","=","modulos.id")
+        //->where("id_usuario","=",$Usuario)
+        ->get();
+        return $modulo;
     }
 
     public function store(Request $request){

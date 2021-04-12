@@ -25,7 +25,7 @@ class EmpresaController extends Controller{
             'nombre'=>'required|string|max:191',
             'direccion'=>'required|string|max:191',
             'telefono'=>'required|string|max:191',
-            'rfc'=>'required|string|unique:empresas',
+            'rfc'=>'required|string|alpha|alpha_num|unique:empresas',
             'correo'=>'required|email|unique:empresas'
         ],
         [

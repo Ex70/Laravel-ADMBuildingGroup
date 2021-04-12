@@ -13,22 +13,35 @@ class AccesoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $posts = Acceso::orderBy('id', 'ASC')->get();
+    public function index(){
+        $idUsuario = auth('api')->user()->id;
+        //$posts = Acceso::orderBy('id', 'ASC')->get();
+        //$accesos = Acceso::where("id_usuario","=",$idUsuario)->get();
         //$estados = Estado::all()->orderBy('id','DESC')->toArray();
-        return $posts;
+        //return $posts;
+        return Acceso::latest()->where("id_usuario","=",$idUsuario)->paginate(20);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        return $request;
+    public function modulosAccesos(){
+        $Usuario = auth('api')->user()->id;
+        $acceso = Acceso::select('*')
+        ->orderBy('clave', 'DESC')
+        ->leftJoin("modulos","accesos.id_modulo","=","modulos.id")
+        ->where("id_usuario","=",$Usuario)
+        ->get();
+        return $acceso;
+    }
+
+    public function store(Request $request){
+        // $request->validate([
+        //     'importar' => 'accepted'
+        // ]);
+        if($request->has('importar')){
+            return "Checkbox Checked";
+        }else{
+            return "Checkbox Unchecked";
+        }
+        //return $request;
     }
 
     /**
