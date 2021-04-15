@@ -52,7 +52,7 @@
                         <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Agregar Usuario </h5>
                         <h5 class="modal-title" v-show="editmode" id="addNewLabel">Actualizar información</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <form @submit.prevent="editmode ? actualizarUsuario() : crearUsuario()">
@@ -77,6 +77,10 @@
                                 <input v-model="form.password" type="password" name="password" id="password" placeholder="Contraseña"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                                 <has-error :form="form" field="password"></has-error>
+                            </div>
+                            <div class="form.-group" v-if="user.tipo==1">
+                                <label>Superusuario</label>
+                                <input v-model="form.tipo" type="checkbox" :checked="user.tipo==1 ? checked=true : checked=false"><br/><br/>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -107,6 +111,7 @@
                 })
             }
         },
+        props : ['user'],
         methods:{
             actualizarUsuario(){
                 this.$Progress.start();

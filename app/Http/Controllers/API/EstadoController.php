@@ -29,7 +29,6 @@ class EstadoController extends Controller
     {
         $this->validate($request,[
             'nombre'=>'required|string|max:191',
-            'id_estado'=>'required|id',
             'clave'=>'required|string|max:4|unique:estados',
         ],
         [

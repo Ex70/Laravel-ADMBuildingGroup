@@ -90,8 +90,8 @@
                                     <div class="form-group">
                                         <label for="inputEmail" class="col-sm-2 control-label">Correo</label>
                                         <div class="col-sm-12">
-                                        <input type="email" v-model="form.correo" class="form-control" id="inputCorreo" placeholder="Correo electrónico"  :class="{ 'is-invalid': form.errors.has('correo') }">
-                                        <has-error :form="form" field="correo"></has-error>
+                                        <input type="email" v-model="form.email" class="form-control" id="inputEmail" placeholder="Correo electrónico"  :class="{ 'is-invalid': form.errors.has('email') }">
+                                        <has-error :form="form" field="email"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -137,7 +137,7 @@
                     id:'',
                     nombre : '',
                     usuario: '',
-                    correo: '',
+                    email: '',
                     password: '',
                     imagen: '',
                     tipo: ''
@@ -163,10 +163,15 @@
                 if(this.form.password == ''){
                     this.form.password = undefined;
                 }
-                this.form.put('api/profile')
+                this.form.put('api/user/'+this.form.id)
                 .then(()=>{
-                     Fire.$emit('AfterCreate');
+                    swal.fire(
+                        '¡Actualizado!',
+                        'La información ha sido actualizada.',
+                        'success'
+                    )
                     this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
                 })
                 .catch(() => {
                     this.$Progress.fail();

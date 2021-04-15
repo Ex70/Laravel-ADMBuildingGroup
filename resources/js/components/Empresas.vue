@@ -94,7 +94,8 @@
                             <div class="form-group">
                                 <label for="logo" class="col-sm-2 control-label">Logo</label>
                                 <div class="col-sm-12">
-                                    <input type="file" @change="updateProfile" name="logo" class="form-input">
+                                    <input type="file" @change="updateProfile" name="logo" class="form-input":class="{ 'is-invalid': form.errors.has('logo') }">
+                                    <has-error :form="form" field="logo"></has-error>
                                 </div>
                             </div>
                         </div>

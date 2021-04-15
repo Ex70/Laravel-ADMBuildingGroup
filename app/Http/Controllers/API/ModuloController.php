@@ -28,7 +28,7 @@ class ModuloController extends Controller{
     public function store(Request $request){
         $this->validate($request,[
             'nombre'=>'required|string|max:191',
-            'clave'=>'required|string|max:10|unique:modulos',
+            'clave'=>'required|numeric|max:10|unique:modulos',
             'vista'=>'required|string|max:191',
         ],
         [

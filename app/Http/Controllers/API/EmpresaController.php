@@ -24,13 +24,18 @@ class EmpresaController extends Controller{
         $this->validate($request,[
             'nombre'=>'required|string|max:191',
             'direccion'=>'required|string|max:191',
-            'telefono'=>'required|string|max:191',
-            'rfc'=>'required|string|alpha|alpha_num|unique:empresas',
-            'correo'=>'required|email|unique:empresas'
+            'telefono'=>'required|digits:10',
+            'rfc'=>['required','string','regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/','unique:empresas',],
+            //'rfc'=>'required|string|alpha|alpha_num|unique:empresas',
+            //'rfc'=>'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/',
+            'correo'=>'required|email|unique:empresas',
+            'logo' =>'required'
         ],
         [
             'nombre.required' => 'Debes ingresar un nombre valido!',
+            'logo.required' => 'Debes ingresar una imagen valida!',
             'direccion.required' => 'Debes ingresar una direccion valida!',
+            'telefono.digits' => 'Número no valido',
             'telefono.required' => 'Debes ingresar un teléfono valido!',
             "rfc.unique" => "La clave rfc proporcionada ya existe",
             "correo.unique" => "El correo proporcionado ya existe"

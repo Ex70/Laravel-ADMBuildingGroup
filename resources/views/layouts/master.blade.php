@@ -487,7 +487,7 @@
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link to="/users" class="nav-link">
+                                    <router-link to="/users" :user="{{ Auth::user() }}" class="nav-link">
                                         <i class="fas fa-users nav-icon"></i>
                                         <p>Usuarios</p>
                                     </router-link>

@@ -18,11 +18,9 @@
                                 <label>PRESUPUESTO BASE</label>
                                 <div v-for="(modulo, c) in modulos" v-bind:key="c">
                                     <div class="custom-control" v-if="user.id==modulo.id_usuario || modulo.id_usuario==NULL">
-                                        <label v-if="modulo.clave.length == 1">modulo.nombre</label>
-                                        {{modulo.clave.length}}
-                                        <!-- <div class="custom-control" v-if="acceso.id_modulo == 1 || index == 3"> -->
-                                        <input :id=concatenar+modulo.id :v-model=concatenar+modulo.id type="checkbox" checked=modulo.id_usuario :checked="modulo.id_usuario==user.id ? checked=true : checked=false">
-                                        <label>{{modulo.nombre}}</label><br/><br/>
+                                        <label v-if="modulo.clave.length == 1">{{modulo.nombre}}</label>
+                                        <input v-if="user.id==modulo.id_usuario" :id=concatenar+modulo.id :v-model=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==user.id ? checked=true : checked=false">
+                                        <br/><br/>
                                     </div>
                                 </div>
 
