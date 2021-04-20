@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Acceso;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AccesoController extends Controller
 {
@@ -33,15 +34,24 @@ class AccesoController extends Controller
     }
 
     public function store(Request $request){
+        DB::table('accesos')->where('id_usuario', '=', $request->id_usuario)->delete();
+        $cadena = '';
+        $idUsuario = $request->id_usuario;
         // $request->validate([
         //     'importar' => 'accepted'
         // ]);
-        if($request->has('importar')){
-            return "Checkbox Checked";
-        }else{
-            return "Checkbox Unchecked";
+        //foreach($array as $key=>$value) {
+        $index = 1;
+        foreach($request->pruebas as $acceso){
+            if($acceso[$index]==true){
+                DB::insert('insert into accesos(id_usuario,id_modulo) values (?, ?)', [$idUsuario, $index]);
+                //echo "The index is $index";
+            }else{
+                echo "No pasó";
+            }
+            $index++;
         }
-        //return $request;
+        return "Resultó";
     }
 
     /**

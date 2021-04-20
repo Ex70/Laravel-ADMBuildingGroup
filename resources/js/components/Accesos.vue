@@ -2,44 +2,100 @@
     <div class="container">
         <div class="card card-secondary">
             <div class="card-header">
-                <h3 class="card-title">Asignación de Accesos - {{user.usuario}}</h3>
+                <h3 class="card-title">Asignación de Accesos</h3>
             </div>
             <div class="form-group">
                 <label>Usuarios</label>
-                <select class="form-control" name="id_usuario" style="width: 100%;" type="number" v-model="form.id_usuario" :class="{ 'is-invalid': form.errors.has('id_usuario') }"> <option value="">Seleccionar usuario</option> <option v-for="(usuario, c) in usuarios" v-bind:key="c" :value="usuario.id">{{usuario.usuario}}</option>
+                <select class="form-control" @change="seleccionUsuario($event)" name="id_usuario" style="width: 100%;" type="number" v-model="form.id_usuario" :class="{ 'is-invalid': form.errors.has('id_usuario') }"> <option value="">Seleccionar usuario</option> <option v-for="(usuario, c) in usuarios.data" v-bind:key="c" :value="usuario.id">{{usuario.usuario}}</option>
                 </select>
                 <has-error :form="form" field="id_usuario"></has-error>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
                 <form role="form">
                     <div class="row">
-                        <div class="col-sm-6">
-                                <label>PRESUPUESTO BASE</label>
-                                <div v-for="(modulo, c) in modulos" v-bind:key="c">
-                                    <div class="custom-control" v-if="user.id==modulo.id_usuario || modulo.id_usuario==NULL">
-                                        <label v-if="modulo.clave.length == 1">{{modulo.nombre}}</label>
-                                        <input v-if="user.id==modulo.id_usuario" :id=concatenar+modulo.id :v-model=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==user.id ? checked=true : checked=false">
-                                        <br/><br/>
+                        <div class="col-sm-12">
+                            <div v-for="(modulo, c) in modulos" v-bind:key="c">
+                                <div v-if="modulos[c+1]">
+                                    <div v-if="modulo['id_usuario'] !== modulos[c+1].id_usuario && modulo['clave'] == modulos[c+1].clave">
+                                        <div class="custom-control" v-if="user.id==modulo.id_usuario && usuario==user.id">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
+                                        <div class="custom-control" v-else-if="modulo.id_usuario==usuario">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
+                                        <div class="custom-control" v-else-if="user.id==modulo.id_usuario">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
+                                    </div>
+                                    <div v-else-if="modulo['clave']!=clave">
+                                        <div class="custom-control" v-if="user.id==modulo.id_usuario && usuario==user.id">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
+                                        <div class="custom-control" v-else-if="modulo.id_usuario==usuario">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
+                                        <div class="custom-control" v-else-if="user.id==modulo.id_usuario">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
+                                    </div>
+                                    <div else></div>
+                                </div>
+                                <div v-else>
+                                    <div v-if="modulo['clave'] !== clave">
+                                        <div class="custom-control" v-if="user.id==modulo.id_usuario && usuario==user.id">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
+                                        <div class="custom-control" v-else-if="modulo.id_usuario==usuario">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
+                                        <div class="custom-control" v-else-if="user.id==modulo.id_usuario">
+                                            <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
+                                            <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
+                                            <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
+                                            <br/><br/>
+                                        </div>
                                     </div>
                                 </div>
-
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>PRESUPUESTO CLIENTE</label><br>
-                                <label>Importación</label>
-                                <div id='example-3'>
-                                    <div v-for="(item, index) in names" :key="index">
-                                        <input type="checkbox" :id="item.name" v-model="item.checked">
-                                        <label :for="item.name">{{ item.name }}</label>
-                                    </div>
-                                    <span>Checked names: {{ checkedNames }}</span>
-                                </div>
+                                <div style="display:none">{{clave = modulo.clave}}</div>
                             </div>
                         </div>
-                        <div class="row">
-                            <button @click.prevent="crearAccesos" type="submit" class="btn btn-success">Asignar permisos</button>
+                        <div class="col-12">
+                            <button type="submit" @click.prevent="crearAccesos" class="btn btn-success float-right" style="margin-right: 5px;">
+                                <i class="fas fa-circle"></i> Asignar permisos
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -100,30 +156,34 @@
                 estados:{},
                 usuarios:{},
                 modulos:{},
+                clave: '',
+                contadorModulos: {},
+                usuario: this.user.id,
                 form: new Form({
                     id: '',
                     pruebas:[],
                     1: '',
                     nombre: '',
+                    permisos: [],
                     clave: '',
                     estado: '',
                     id_estado: '',
                     id_usuario: '',
                     id_modulo: ''
-                }),
-                names: [{
-                    name: 'jack',
-                    checked: true
-                }, {
-                    name: 'john',
-                    checked: true
-                }, {
-                    name: 'mike',
-                    checked: false
-                }]
+                })
             }
         },
         methods:{
+            seleccionUsuario2(event){
+                console.log(this.form.id_usuario);
+                axios.get("api/modulosAccesos2"+this.form.id_usuario).then(({data}) => (this.modulos = data));
+                console.log(this.modulos);
+            },
+            seleccionUsuario(event) {
+                console.log(event.target.value);
+                axios.get("api/modulosAccesos2/"+this.form.id_usuario).then(({data}) => (this.modulos = data));
+                this.usuario = this.form.id_usuario;
+            },
             claveCorta(cadena){
                 let indice = cadena.indexOf("-");
                 return cadena.substring(0, indice);
@@ -193,31 +253,45 @@
             cargarUsuarios(){
                 axios.get("api/user").then(({data}) => (this.usuarios = data));
                 console.log(this.usuarios);
-            },cargarModulos(){
+            },
+            cargarModulos(){
                 axios.get("api/modulosAccesos").then(({data}) => (this.modulos = data));
-                console.log(this.modulos);
+                axios.get("api/modulo").then(({data}) => (this.contadorModulos = data));
             },
             crearAccesos(){
-                var c = document.getElementById('form.1');
-                // var d=document.getElementById('terms_div');
-                if (c.checked) {
-                    //c= c.slice(c.lastIndexOf('.') + 1);
-                    c = c.id;
-                    console.log(c);
-                    console.log("Seleccionado "+c);
-                    c = "this."+c;
-                    console.log("Seleccionado "+c);
-                    this.form.pruebas.push(true);
-                }else{console.log("No seleccionado")}
+                var contador = this.contadorModulos.length;
+                var obj = {};
+                for (i=1;i<=contador;i++){
+                    this.form.pruebas.splice(0, 1);
+                    console.log("Algo")
+                }
+                var i=0;
+                console.log("Contador: "+contador);
+                if(this.form.id_usuario<1){
+                    this.form.id_usuario = this.user.id;
+                }
+                for (i=1;i<=contador;i++){
+                    var link = false;
+                    var formValor = this.concatenar+i;
+                    var c = document.getElementById(formValor);
+                    if(c.checked){
+                        link=true;
+                        this.form.pruebas.push({[i] : link});
+                    }else{
+                        link=false;
+                        this.form.pruebas.push({[i] : link});
+                    }
+                }
+                contador = 0;
                 this.$Progress.start();
-                this.form.post('api/accesos')
+                this.form.post('api/acceso')
                 .then(()=>{
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide');
                     toast.fire({
                         icon: 'success',
                         type: 'success',
-                        title: 'Ciudad creada'
+                        title: 'Accesos actualizados'
                     })
                     this.$Progress.finish();
                 })
@@ -235,9 +309,6 @@
             });
         },
         computed: {
-            checkedNames () {
-                return this.names.filter(item => item.checked).map(name => name.name)
-            },
             concatenar(){
                 return "form.";
             }

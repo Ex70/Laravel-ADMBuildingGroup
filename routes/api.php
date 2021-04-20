@@ -30,3 +30,5 @@ Route::get('profile','API\UserController@profile');
 Route::get('empresa/{id}','API\EmpresaController@show');
 Route::get('obtenerUsuarios','API\UserController@obtenerUsuarios');
 Route::get('modulosAccesos','API\ModuloController@modulosAccesos');
+Route::get('modulosTotales','API\ModuloController@modulosTotales');
+Route::get('modulosAccesos2/{id}','API\ModuloController@modulosAccesos2');
