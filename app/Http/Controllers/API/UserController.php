@@ -18,6 +18,7 @@ class UserController extends Controller
     public function index(){
         // $users = User::orderBy('id', 'ASC')->get();
         // return $users;
+        $this->authorize('isAdmin');
         return User::latest()->paginate(20);
     }
 

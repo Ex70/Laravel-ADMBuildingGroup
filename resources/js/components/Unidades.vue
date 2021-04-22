@@ -1,6 +1,12 @@
 <template>
     <div class="container">
-        <div class="row mt-5">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-1">
+                </div>
+            </div>
+        </section>
+        <div class="row mt-10" v-if="$gate.isAdmin()">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -39,6 +45,9 @@
                 </div>
             </div>
         </div>
+        <div v-if="!$gate.isAdmin()">
+            <not-found></not-found>
+        </div>
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -52,11 +61,13 @@
                     <form @submit.prevent="editmode ? actualizarUnidad() : crearUnidad()">
                         <div class="modal-body">
                             <div class="form-group">
+                                <label>Clave</label>
                                 <input v-model="form.clave" type="text" name="clave" placeholder="Clave" id="clave"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('clave') }">
                                 <has-error :form="form" field="clave"></has-error>
                             </div>
                             <div class="form-group">
+                                <label>Descripción</label>
                                 <input v-model="form.descripcion" type="text" name="descripcion" placeholder="Descripción" id="descripcion"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('descripcion') }">
                                 <has-error :form="form" field="descripcion"></has-error>
@@ -143,7 +154,9 @@
                 })
             },
             cargarUnidades(){
-                axios.get("api/unidad").then(({data}) => (this.unidades = data));
+                if(this.$gate.isAdmin){
+                    axios.get("api/unidad").then(({data}) => (this.unidades = data));
+                }
             },
             crearUnidad(){
                 this.$Progress.start();

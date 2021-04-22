@@ -29,6 +29,13 @@ class AuthServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
 
+        Gate::define('isAdmin',function($user){
+            return $user->tipo == 1;
+        });
+        Gate::define('isUser',function($user){
+            return $user->tipo == 0;
+        });
+
         Passport::routes();
 
         //

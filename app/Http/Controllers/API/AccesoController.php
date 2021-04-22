@@ -16,10 +16,6 @@ class AccesoController extends Controller
      */
     public function index(){
         $idUsuario = auth('api')->user()->id;
-        //$posts = Acceso::orderBy('id', 'ASC')->get();
-        //$accesos = Acceso::where("id_usuario","=",$idUsuario)->get();
-        //$estados = Estado::all()->orderBy('id','DESC')->toArray();
-        //return $posts;
         return Acceso::latest()->where("id_usuario","=",$idUsuario)->paginate(20);
     }
 
@@ -37,15 +33,10 @@ class AccesoController extends Controller
         DB::table('accesos')->where('id_usuario', '=', $request->id_usuario)->delete();
         $cadena = '';
         $idUsuario = $request->id_usuario;
-        // $request->validate([
-        //     'importar' => 'accepted'
-        // ]);
-        //foreach($array as $key=>$value) {
         $index = 1;
         foreach($request->pruebas as $acceso){
             if($acceso[$index]==true){
                 DB::insert('insert into accesos(id_usuario,id_modulo) values (?, ?)', [$idUsuario, $index]);
-                //echo "The index is $index";
             }else{
                 echo "No pasó";
             }

@@ -1,6 +1,12 @@
 <template>
     <div class="container">
-        <div class="row mt-5">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-1">
+                </div>
+            </div>
+        </section>
+        <div class="row mt-10" v-if="$gate.isAdmin()">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -45,6 +51,9 @@
                 </div>
             </div>
         </div>
+        <div v-if="!$gate.isAdmin()">
+            <not-found></not-found>
+        </div>
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -59,21 +68,25 @@
                         <div class="modal-body">
                             <input v-model="form.tipo" type="hidden" name="tipo" value="0">
                             <div class="form-group">
+                                <label>Nombre</label>
                                 <input v-model="form.nombre" type="text" name="nombre" placeholder="Nombre" id="nombre"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('nombre') }">
                                 <has-error :form="form" field="nombre"></has-error>
                             </div>
                             <div class="form-group">
+                                <label>Usuario</label>
                                 <input v-model="form.usuario" type="text" name="usuario" placeholder="Usuario" id="usuario"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('usuario') }">
                                 <has-error :form="form" field="usuario"></has-error>
                             </div>
                             <div class="form-group">
+                                <label>Email</label>
                                 <input v-model="form.email" type="email" name="email" placeholder="Correo electrónico" id="email"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                                 <has-error :form="form" field="email"></has-error>
                             </div>
                             <div class="form-group">
+                                <label>Contraseña</label>
                                 <input v-model="form.password" type="password" name="password" id="password" placeholder="Contraseña"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                                 <has-error :form="form" field="password"></has-error>
@@ -150,7 +163,8 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, Eliminar!'
+                    confirmButtonText: 'Si, Eliminar!',
+                    cancelButtonText: "Cancelar",
                     }).then((result) => {
                         if(result.value){
                             this.form.delete('api/user/'+id).then(()=>{
@@ -167,7 +181,9 @@
                 })
             },
             loadUsers(){
-                axios.get("api/user").then(({data}) => (this.users = data.data));
+                if(this.$gate.isAdmin){
+                    axios.get("api/user").then(({data}) => (this.users = data.data));
+                }
             },
             crearUsuario(){
                 this.$Progress.start();

@@ -21,6 +21,8 @@ window.toast = toast;
 
 import { values } from 'lodash';
 import { Form, HasError, AlertError } from 'vform';
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
 import VueProgressBar from 'vue-progressbar';
 
 window.Form = Form;
@@ -141,6 +143,11 @@ Vue.component(
 Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
+);
+
+Vue.component(
+    'not-found',
+    require('./components/NotFound.vue').default
 );
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);

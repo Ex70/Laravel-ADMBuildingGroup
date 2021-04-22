@@ -17,13 +17,8 @@ class ModuloController extends Controller{
     }
 
     public function modulosTotales(){
-        $wordlist = Modulo::select('id')->where('id', '>=', 1)->get();
-        $wordCount = $wordlist->count();
-        return $wordlist;
-        // return response()->json([
-        //     'total' => $wordCount,
-        //     'estado' => '1',
-        // ]);
+        $totales = Modulo::select('id')->where('id', '>=', 1)->get();
+        return $totales;
     }
 
     public function modulosAccesos2($id){
@@ -33,19 +28,6 @@ class ModuloController extends Controller{
         }else{
             $results = DB::select('select modulos.*,accesos.id_usuario from modulos JOIN accesos ON accesos.id_modulo = modulos.id where id_usuario in (?,1) order by clave,id_usuario desc', [$id]);
         }
-        // $modulo = Modulo::select(
-        //     DB::raw(REPLACE(accesos.id_usuario, 'NULL', '14') = id_usuario)
-        // //     DB::raw('ISNULL(accesos.id_usuario, 14 ) AS id_usuario')
-        //      )
-        $modulo = Modulo::select('modulos.*','accesos.id_usuario')
-        ->Join("accesos","accesos.id_modulo","=","modulos.id")
-        ->where("id_usuario","=",14)
-        //->whereNull('id_usuario')
-        //->orWhere("id_usuario","=",$Usuario)
-        // ->orWhereNull('id_usuario')
-        // ->orderBy('modulos.clave', 'ASC')
-        //("id_usuario","=",isNU)
-        ->get();
         return $results;
     }
 
@@ -55,7 +37,6 @@ class ModuloController extends Controller{
         ->orderBy('modulos.clave', 'ASC')
         ->leftJoin("accesos","accesos.id_modulo","=","modulos.id")
         ->where("id_usuario","=",$Usuario)
-        // ->orWhere("id_usuario","=",NULL)
         ->get();
         return $modulo;
     }
