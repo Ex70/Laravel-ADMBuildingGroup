@@ -43,6 +43,7 @@ class UserController extends Controller
             'usuario' => $request['usuario'],
             'email' => $request['email'],
             'tipo' => $request['tipo'],
+            'activo' => $request['activo'],
             'password' => Hash::make($request['password']),
         ]);
         $data = "[".$fecha."] El usuario " .$user->usuario. " agregó el módulo " .$request->nombre. " con los siguientes datos: " .$usuario;

@@ -67,6 +67,7 @@
                     <form @submit.prevent="editmode ? actualizarUsuario() : crearUsuario()">
                         <div class="modal-body">
                             <input v-model="form.tipo" type="hidden" name="tipo" value="0">
+                            <input v-model="form.activo" type="hidden" name="activo" value="1">
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input v-model="form.nombre" type="text" name="nombre" placeholder="Nombre" id="nombre"
@@ -120,7 +121,8 @@
                     usuario: '',
                     email: '',
                     password: '',
-                    tipo:0
+                    tipo:0,
+                    activo:1
                 })
             }
         },
