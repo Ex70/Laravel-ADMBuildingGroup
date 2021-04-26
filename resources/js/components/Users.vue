@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Usuarios</h3>
+                        <h3 class="card-title">Usuarios {{$empresita}}</h3>
                         <div class="card-tools">
                             <button class="btn btn-success" @click="newModal">Agregar usuario<i class="fas fa-user-plus fa-wf"></i></button>
                         </div>
@@ -28,7 +28,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="user in users" :key="user.id">
+                                <tr v-for="user in users.data" :key="user.id">
                                     <td>{{user.id}}</td>
                                     <td>{{user.nombre}}</td>
                                     <td>{{user.email | upText}}</td>
@@ -47,6 +47,9 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="card-footer">
+                        <pagination :data="users" @pagination-change-page="getResults"></pagination>
                     </div>
                 </div>
             </div>
@@ -128,6 +131,12 @@
         },
         props : ['user'],
         methods:{
+            getResults(page = 1) {
+                axios.get('api/user?page=' + page)
+                    .then(response => {
+                        this.users = response.data;
+                    });
+            },
             actualizarUsuario(){
                 this.$Progress.start();
                 this.form.put('api/user/'+this.form.id)
@@ -184,7 +193,7 @@
             },
             loadUsers(){
                 if(this.$gate.isAdmin){
-                    axios.get("api/user").then(({data}) => (this.users = data.data));
+                    axios.get("api/user").then(({data}) => (this.users = data));
                 }
             },
             crearUsuario(){
@@ -208,6 +217,13 @@
             this.loadUsers();
             Fire.$on('AfterCreate',()=>{
                 this.loadUsers();
+            });
+            Fire.$on('searching',()=>{
+                let query = this.$parent.search;
+                axios.get('api/findUser?q='+query)
+                .then((data)=>{
+                    this.users = data.data;
+                })
             });
         }
     }

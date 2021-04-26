@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Acceso;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -54,19 +56,22 @@ class LoginController extends Controller
             'empresa_id' => 'nullable|required',
         ],
         [
-            'empresa_id.nullable' => 'Debe seleccionar una empresa!',
+            'empresa_id.nullable' => 'Debe seleccionar una empresa',
+            'empresa_id.required' => 'Debe seleccionar una empresa',
         ]);
 
         $fieldType = filter_var($request->usuario, FILTER_VALIDATE_EMAIL) ? 'email' : 'usuario';
         if(auth()->attempt(array($fieldType => $input['usuario'], 'password' => $input['password'])))
         {
             Session::put('empresa',$request['empresa_id']);
-            $empresa = $request['empresa_id'];
-            return view('home',compact('empresa'));
-            //return redirect()->route('home')->with( [ 'empresa' => $request['empresa_id']] );;
+            //return view('home',compact('empresa'));
+            return redirect()->route('home');
+            // ->with( [ 'empresa' => $request['empresa_id']] );;
         }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+            $errors = ['Datos de acceso erróneos'];
+            return redirect()->back()->withErrors($errors);
+            // return redirect()->back()
+            //     ->withErrors('email','Email-Address And Password Are Wrong.');
         }
     }
 }

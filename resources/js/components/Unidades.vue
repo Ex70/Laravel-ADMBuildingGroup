@@ -137,7 +137,8 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, Eliminar!'
+                    confirmButtonText: 'Si, Eliminar!',
+                    cancelButtonText: "Cancelar",
                     }).then((result) => {
                         if(result.value){
                             this.form.delete('api/unidad/'+id).then(()=>{

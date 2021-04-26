@@ -23,11 +23,14 @@ import { values } from 'lodash';
 import { Form, HasError, AlertError } from 'vform';
 import Gate from "./Gate";
 Vue.prototype.$gate = new Gate(window.user);
+Vue.prototype.$empresita = 1;
 import VueProgressBar from 'vue-progressbar';
 
 window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
+
+Vue.component('pagination',require('laravel-vue-pagination'));
 
 import VueRouter from 'vue-router'
 
@@ -99,7 +102,8 @@ let routes = [
     { path: '/gastos/generales', component: require('./components/gastos/generales.vue').default },
     { path: '/reportes/por-obra', component: require('./components/reportes/por-obra.vue').default },
     { path: '/reportes/por-cliente', component: require('./components/reportes/por-cliente.vue').default },
-    { path: '/reportes/generales', component: require('./components/reportes/generales.vue').default }
+    { path: '/reportes/generales', component: require('./components/reportes/generales.vue').default },
+    { path: '*', component: require('./components/NotFound.vue').default }
 ]
 
 const router = new VueRouter({
@@ -160,5 +164,17 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    router
+    empresita: 1,
+    router,
+    data:{
+        search:''
+    },
+    methods:{
+        searchit: _.debounce(()=>{
+            Fire.$emit('searching');
+        },2000),
+        printme() {
+            window.print();
+        }
+    }
 });

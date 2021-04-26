@@ -19,7 +19,7 @@ class UserController extends Controller
         // $users = User::orderBy('id', 'ASC')->get();
         // return $users;
         $this->authorize('isAdmin');
-        return User::latest()->paginate(20);
+        return User::latest()->paginate(5);
     }
 
     public function store(Request $request){
@@ -97,5 +97,20 @@ class UserController extends Controller
         $data = "[".$fecha."] El usuario " .$user->usuario. " eliminó al usuario " .$user->usuario. " que contenía los siguientes datos: " .$user;
         Storage::append('logs.txt', $data);
         return['message' => 'Usuario Eliminado'];
+    }
+
+    public function search(){
+
+        if ($search = \Request::get('q')) {
+            $users = User::where(function($query) use ($search){
+                $query->where('usuario','LIKE',"%$search%")
+                        ->orWhere('email','LIKE',"%$search%");
+            })->paginate(20);
+        }else{
+            $users = User::latest()->paginate(5);
+        }
+
+        return $users;
+
     }
 }

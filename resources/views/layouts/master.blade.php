@@ -30,16 +30,18 @@
                     </li>
                 </ul>
                 <!-- SEARCH FORM -->
-                <form class="form-inline ml-3">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Buscar" aria-label="Search">
+                <!-- <form class="form-inline ml-3"> -->
+                    <div class="ml-3">
+                    <div class="input-group input-group-sm ml-3">
+                        <input class="form-control form-control-navbar" @keyup="searchit" v-model="search" type="search" placeholder="Search" aria-label="Search">
                         <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
+                            <button class="btn btn-navbar" type="button" @click="searchit">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
-                </form>
+                    </div>
+                <!-- </form> -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -511,13 +513,15 @@
                     <!-- To the right -->
                     <div class="float-right d-none d-sm-inline"><strong><a href="#">Grupo Constructor ADM</a>.</strong></div>
                     <!-- Default to the left -->
-                    <strong>Copyright &copy; 2021. Empresa: {{Session::get('empresa')}}</strong>
+                    <strong>Copyright &copy; 2021. Empresa: {{Session::get('empresa')}}  {{Session::get('accesos')}}</strong>
                 </footer>
             </div>
             <!-- ./wrapper -->
             @auth
             <script>
                 window.user = @json(auth()->user())
+                // window.empresaSeleccionada = '{{ Session::get('empresa')}}'
+                // window.empresaSeleccionada == 1
             </script>
             @endauth
         <script src="js/app.js"></script>
