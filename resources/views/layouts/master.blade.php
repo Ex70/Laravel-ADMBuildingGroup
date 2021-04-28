@@ -33,7 +33,7 @@
                 <!-- <form class="form-inline ml-3"> -->
                     <div class="ml-3">
                     <div class="input-group input-group-sm ml-3">
-                        <input class="form-control form-control-navbar" @keyup="searchit" v-model="search" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control form-control-navbar" @keyup="searchit" v-model="search" type="search" placeholder="Buscar" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-navbar" type="button" @click="searchit">
                                 <i class="fas fa-search"></i>

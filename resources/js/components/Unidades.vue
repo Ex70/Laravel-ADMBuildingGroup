@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-1">
@@ -25,7 +25,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="unidad in unidades" :key="unidad.id">
+                                <tr v-for="unidad in unidades.data" :key="unidad.id">
                                     <td>{{unidad.id}}</td>
                                     <td>{{unidad.clave | upText}}</td>
                                     <td>{{unidad.descripcion | upText}}</td>
@@ -42,6 +42,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer">
+                        <pagination :data="unidades" @pagination-change-page="getResults"></pagination>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,7 +55,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Agregar Estado </h5>
+                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Agregar Unidad </h5>
                         <h5 class="modal-title" v-show="editmode" id="addNewLabel">Actualizar información</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -99,6 +102,12 @@
             }
         },
         methods:{
+            getResults(page = 1) {
+                axios.get('api/unidad?page=' + page)
+                    .then(response => {
+                        this.unidades = response.data;
+                    });
+            },
             actualizarUnidad(){
                 this.$Progress.start();
                 this.form.put('api/unidad/'+this.form.id)
@@ -180,6 +189,13 @@
             this.cargarUnidades();
             Fire.$on('AfterCreate',()=>{
                 this.cargarUnidades();
+            });
+            Fire.$on('searching',()=>{
+                let query = this.$parent.search;
+                axios.get('api/findUnity?q='+query)
+                .then((data)=>{
+                    this.unidades = data.data;
+                })
             });
         }
     }

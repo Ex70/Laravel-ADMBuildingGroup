@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class UnidadController extends Controller{
     public function index(){
-        $unidades = Unidad::orderBy('id', 'ASC')->get();
+        // $this->authorize('isAdmin');
+        $unidades = Unidad::orderBy('id', 'ASC')->paginate(10);
         return $unidades;
     }
 
@@ -66,5 +67,18 @@ class UnidadController extends Controller{
         $data = "[".$fecha."] El usuario " .$user->usuario. " eliminó la unidad " .$unidad->clave. " que contenía los siguientes datos: " .$unidad;
         Storage::append('logs.txt', $data);
         return['message' => 'Unidad Eliminada'];
+    }
+
+    public function search(){
+
+        if ($search = \Request::get('q')) {
+            $unidades = Unidad::where(function($query) use ($search){
+                $query->where('descripcion','LIKE',"%$search%")
+                        ->orWhere('clave','LIKE',"%$search%");
+            })->paginate(10);
+        }else{
+            $unidades = Unidad::latest()->paginate(10);
+        }
+        return $unidades;
     }
 }

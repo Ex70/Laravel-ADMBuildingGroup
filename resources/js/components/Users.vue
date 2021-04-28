@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Usuarios {{$empresita}}</h3>
+                        <h3 class="card-title">Usuarios</h3>
                         <div class="card-tools">
                             <button class="btn btn-success" @click="newModal">Agregar usuario<i class="fas fa-user-plus fa-wf"></i></button>
                             <button type="button" v-print="'#printMe'" class="btn btn-info"><i class="icon-doc"></i>&nbsp;Imprimir</button>

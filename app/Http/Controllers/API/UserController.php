@@ -20,7 +20,7 @@ class UserController extends Controller
         // $users = User::orderBy('id', 'ASC')->get();
         // return $users;
         $this->authorize('isAdmin');
-        return User::latest()->paginate(5);
+        return User::paginate(10);
     }
 
     public function store(Request $request){
