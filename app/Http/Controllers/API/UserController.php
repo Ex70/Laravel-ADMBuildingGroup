@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class UserController extends Controller
 {
@@ -109,8 +110,18 @@ class UserController extends Controller
         }else{
             $users = User::latest()->paginate(5);
         }
-
         return $users;
+    }
 
+    public function listarPdf(){
+        return view('invoice');
+        //$pdf = \PDF::loadView('ejemplo');
+        //return $pdf->download('ejemplo.pdf');
+        //return['message' => 'Usuario Eliminado'];
+        // $usuarios = User::latest()->paginate(5);
+        // return $usuarios;
+        // $cont = User::count();
+        // $pdf = PDF::loadView('pdf.usuariospdf',['usuarios'=>$usuarios, 'cont'=>$cont]);
+        // return $pdf->download('usuarios.pdf');
     }
 }

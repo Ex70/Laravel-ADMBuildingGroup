@@ -1,18 +1,19 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-1">
                 </div>
             </div>
         </section>
-        <div class="row mt-10" v-if="$gate.isAdmin()">
+        <div class="row mt-10" id="printMe" v-if="$gate.isAdmin()">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Usuarios {{$empresita}}</h3>
                         <div class="card-tools">
                             <button class="btn btn-success" @click="newModal">Agregar usuario<i class="fas fa-user-plus fa-wf"></i></button>
+                            <button type="button" v-print="'#printMe'" class="btn btn-info"><i class="icon-doc"></i>&nbsp;Imprimir</button>
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">
@@ -25,6 +26,7 @@
                                     <th>Usuario</th>
                                     <th>Tipo</th>
                                     <th>Creado el</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,7 +35,8 @@
                                     <td>{{user.nombre}}</td>
                                     <td>{{user.email | upText}}</td>
                                     <td>{{user.usuario | upText}}</td>
-                                    <td><span class="tag tag-success">Approved</span></td>
+                                    <td v-if="user.tipo==1"><span class="tag tag-success">SU</span></td>
+                                    <td v-else><span class="tag tag-success">Admin</span></td>
                                     <td>{{user.created_at | myDate}}</td>
                                     <td>
                                         <a href="#" @click="editarUsuario(user)">
@@ -190,6 +193,9 @@
                             });
                         }
                 })
+            },
+            cargarPdf(){
+                window.open('pdfUser','_blank');
             },
             loadUsers(){
                 if(this.$gate.isAdmin){

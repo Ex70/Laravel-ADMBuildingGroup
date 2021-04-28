@@ -8,8 +8,12 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import moment from 'moment';
+import 'moment/locale/es';
 import swal from 'sweetalert2'
 window.swal = swal;
+import Print from 'vue-print-nb'
+// Global instruction
+Vue.use(Print);
 
 const toast = swal.mixin({
     toast: true,
@@ -118,7 +122,7 @@ Vue.filter('upText',function(text){
 });
 
 Vue.filter('myDate',function(created){
-    return moment(created).format('MMMM Do YYYY');
+    return moment(created).local('es').format('DD MMMM YYYY');
 });
 
 window.Fire = new Vue();
@@ -172,8 +176,9 @@ const app = new Vue({
     methods:{
         searchit: _.debounce(()=>{
             Fire.$emit('searching');
-        },2000),
+        },1000),
         printme() {
+            console.log("SSS");
             window.print();
         }
     }
