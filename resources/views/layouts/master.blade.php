@@ -474,6 +474,12 @@
                                         <p>Usuarios</p>
                                     </router-link>
                                 </li>
+                                <li class="nav-item">
+                                    <router-link to="/dynamic" :user="{{ Auth::user() }}" class="nav-link">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>Prueba</p>
+                                    </router-link>
+                                </li>
                             </ul>
                         </li>
                             @endcan

@@ -12,8 +12,10 @@ import 'moment/locale/es';
 import swal from 'sweetalert2'
 window.swal = swal;
 import Print from 'vue-print-nb'
+import VueHtmlToPaper from 'vue-html-to-paper'
 // Global instruction
 Vue.use(Print);
+export const bus = new Vue();
 
 const toast = swal.mixin({
     toast: true,
@@ -22,6 +24,20 @@ const toast = swal.mixin({
     timer: 3000
 });
 window.toast = toast;
+
+const printOptions = {
+    name: '_blank',
+    specs:[
+        'fullscreen=no',
+        'titlebar=no',
+        'scrollbars=no'
+    ],
+    styles:[
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css',
+        'http://127.0.0.1:8000/public/css/app.css'
+    ]
+}
+Vue.use(VueHtmlToPaper,printOptions);
 
 import { values } from 'lodash';
 import { Form, HasError, AlertError } from 'vform';
@@ -107,6 +123,7 @@ let routes = [
     { path: '/reportes/por-obra', component: require('./components/reportes/por-obra.vue').default },
     { path: '/reportes/por-cliente', component: require('./components/reportes/por-cliente.vue').default },
     { path: '/reportes/generales', component: require('./components/reportes/generales.vue').default },
+    { path: '/dynamic', component: require('./components/Dynamic.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ]
 

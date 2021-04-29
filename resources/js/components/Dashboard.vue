@@ -3,7 +3,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Escritorio</h1>
+                    <button 
+      class="switch notes" 
+      @click="switchComponent('dashboard')"
+      :disabled="currentComp === 'dashboard'"
+    >notes</button><h1 class="m-0 text-dark">Escritorio</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">

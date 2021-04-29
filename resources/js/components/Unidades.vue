@@ -12,6 +12,8 @@
                     <div class="card-header">
                         <h3 class="card-title">Unidades</h3>
                         <div class="card-tools">
+                            <button @click="switchComponent('dashboard')"
+      :disabled="currentComp === 'dashboard'" class="btn btn-secondary" >Generar reporte  <i class="fas fa-file-alt"></i></button>
                             <button class="btn btn-success" @click="nuevoModal">Agregar unidad  <i class="fas fa-plus fa-wf"></i></button>
                         </div>
                     </div>
@@ -89,6 +91,7 @@
 </template>
 
 <script>
+    import { bus } from './../app.js';
     export default {
         data(){
             return{
@@ -101,7 +104,16 @@
                 })
             }
         },
+        props: {
+            currentComp: {
+                type: String,
+                required: true
+            }
+        },
         methods:{
+            switchComponent(comp) {
+                bus.$emit('switchComp', comp);
+            },
             getResults(page = 1) {
                 axios.get('api/unidad?page=' + page)
                     .then(response => {
