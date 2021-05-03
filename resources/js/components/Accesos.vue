@@ -146,19 +146,21 @@
             cargarUsuarios(){
                 axios.get("api/user").then(({data}) => (this.usuarios = data));
                 console.log(this.usuarios);
+                //this.cargarModulos();
             },
             cargarModulos(){
                 axios.get("api/modulo").then(({data}) => (this.contadorModulos = data));
+                this.cargarModulosAccesos();
             },
             cargarModulosAccesos(){
                 axios.get("api/modulosAccesos").then(({data}) => (this.modulos = data));
+                this.cargarUsuarios();
             },
             crearAccesos(){
                 var contador = this.contadorModulos.length;
                 var obj = {};
                 for (i=1;i<=contador;i++){
                     this.form.pruebas.splice(0, 1);
-                    console.log("Algo")
                 }
                 var i=0;
                 console.log("Contador: "+contador);
@@ -195,9 +197,10 @@
             }
         },
         mounted() {
-            this.cargarUsuarios();
+            // this.cargarUsuarios();
             this.cargarModulos();
-            this.cargarModulosAccesos();
+            // this.cargarModulosAccesos();
+
             //this.cargarAccesos();
             //this.cargarEstados();
             // Fire.$on('AfterCreate',()=>{
