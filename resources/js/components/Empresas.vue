@@ -1,6 +1,12 @@
 <template>
-    <div class="container">
-        <div class="row mt-5">
+    <div class="container-fluid">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-1">
+                </div>
+            </div>
+        </section>
+        <div class="row mt-10" v-if="$gate.isAdmin()">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -24,7 +30,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="empresa in empresas" :key="empresa.id">
+                                <tr v-for="empresa in empresas.data" :key="empresa.id">
                                     <td>{{empresa.id}}</td>
                                     <td>{{empresa.nombre}}</td>
                                     <td>{{empresa.rfc | upText}}</td>
@@ -50,8 +56,14 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer">
+                        <pagination :data="empresas" @pagination-change-page="getResults"></pagination>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div v-if="!$gate.isAdmin()">
+            <not-found></not-found>
         </div>
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -129,6 +141,15 @@
             }
         },
         methods:{
+            switchComponent(comp) {
+                bus.$emit('switchComp', comp);
+            },
+            getResults(page = 1) {
+                axios.get('api/empresa?page=' + page)
+                    .then(response => {
+                        this.empresas = response.data;
+                    });
+            },
             updateProfile(e){
                 let file = e.target.files[0];
                 let reader = new FileReader();
@@ -223,6 +244,13 @@
             this.cargarEmpresas();
             Fire.$on('AfterCreate',()=>{
                 this.cargarEmpresas();
+            });
+            Fire.$on('searching',()=>{
+                let query = this.$parent.search;
+                axios.get('api/findCompany?q='+query)
+                .then((data)=>{
+                    this.empresas = data.data;
+                })
             });
         }
     }

@@ -15,7 +15,7 @@ class CiudadController extends Controller{
         $ciudades = DB::table('ciudades')
             ->join('estados', 'estados.id', '=', 'ciudades.id_estado')
             ->select('ciudades.*','estados.nombre as estado')
-            ->get()->toArray();
+            ->orderBy('id', 'ASC')->paginate(10)->toArray();
         return $ciudades;
     }
 
@@ -78,5 +78,27 @@ class CiudadController extends Controller{
         $data = "[".$fecha."] El usuario " .$user->usuario. " eliminó la ciudad " .$ciudad->nombre. " que contenía los siguientes datos: " .$ciudad;
         Storage::append('logs.txt', $data);
         return['message' => 'Ciudad Eliminada'];
+    }
+
+    // $ciudades = DB::table('ciudades')
+    //         ->join('estados', 'estados.id', '=', 'ciudades.id_estado')
+    //         ->select('ciudades.*','estados.nombre as estado')
+    //         ->orderBy('id', 'ASC')->paginate(10)->toArray();
+
+    public function search(){
+        if ($search = \Request::get('q')) {
+            // $ciudades = DB::table('ciudades')
+            // ->join('estados', 'estados.id', '=', 'ciudades.id_estado')
+            // ->select('ciudades.*','estados.nombre as estado')
+            // ->where('estados.nombre','LIKE',"%$search%")
+            // ->orderBy('id', 'ASC')->paginate(10)->toArray();
+
+            $ciudades = Ciudad::where(function($query) use ($search){
+                $query->where('nombre','LIKE',"%$search%");
+            })->orderBy('id', 'ASC')->paginate(10);
+        }else{
+            $ciudades = Ciudad::orderBy('id', 'ASC')->paginate(10);
+        }
+        return $ciudades;
     }
 }

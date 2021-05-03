@@ -1,6 +1,12 @@
 <template>
-    <div class="container">
-        <div class="row mt-5">
+    <div class="container-fluid">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-1">
+                </div>
+            </div>
+        </section>
+        <div class="row mt-10" v-if="$gate.isAdmin()">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -20,7 +26,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="modulo in modulos" :key="modulo.id">
+                                <tr v-for="modulo in modulos.data" :key="modulo.id">
                                     <td>{{modulo.id}}</td>
                                     <td>{{modulo.clave | upText}}</td>
                                     <td>{{modulo.nombre | upText}}</td>
@@ -38,8 +44,14 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer">
+                        <pagination :data="modulos" @pagination-change-page="getResults"></pagination>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div v-if="!$gate.isAdmin()">
+            <not-found></not-found>
         </div>
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -96,6 +108,15 @@
             }
         },
         methods:{
+            switchComponent(comp) {
+                bus.$emit('switchComp', comp);
+            },
+            getResults(page = 1) {
+                axios.get('api/modulo?page=' + page)
+                    .then(response => {
+                        this.modulos = response.data;
+                    });
+            },
             actualizarModulo(){
                 this.$Progress.start();
                 this.form.put('api/modulo/'+this.form.id)
@@ -173,6 +194,13 @@
             this.cargarModulos();
             Fire.$on('AfterCreate',()=>{
                 this.cargarModulos();
+            });
+            Fire.$on('searching',()=>{
+                let query = this.$parent.search;
+                axios.get('api/findModulo?q='+query)
+                .then((data)=>{
+                    this.modulos = data.data;
+                })
             });
         }
     }

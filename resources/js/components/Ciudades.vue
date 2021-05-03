@@ -1,6 +1,12 @@
 <template>
-    <div class="container">
-        <div class="row mt-5">
+    <div class="container-fluid">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-1">
+                </div>
+            </div>
+        </section>
+        <div class="row mt-10" v-if="$gate.isAdmin()">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -20,7 +26,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="ciudad in ciudades" :key="ciudad.id">
+                                <tr v-for="ciudad in ciudades.data" :key="ciudad.id">
                                     <td>{{ciudad.id}}</td>
                                     <td>{{ciudad.nombre | upText}}</td>
                                     <td>{{ciudad.estado | upText}}</td>
@@ -40,8 +46,14 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer">
+                        <pagination :data="ciudades" @pagination-change-page="getResults"></pagination>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div v-if="!$gate.isAdmin()">
+            <not-found></not-found>
         </div>
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -104,6 +116,15 @@
             }
         },
         methods:{
+            switchComponent(comp) {
+                bus.$emit('switchComp', comp);
+            },
+            getResults(page = 1) {
+                axios.get('api/ciudad?page=' + page)
+                    .then(response => {
+                        this.ciudades = response.data;
+                    });
+            },
             claveCorta(cadena){
                 let indice = cadena.indexOf("-");
                 return cadena.substring(0, indice);
@@ -167,8 +188,9 @@
                 axios.get("api/ciudad").then(({data}) => (this.ciudades = data));
             },
             cargarEstados(){
-                axios.get("api/estado").then(({data}) => (this.estados = data));
-                console.log(this.estados);
+                if(this.$gate.isAdmin){
+                    axios.get("api/estado").then(({data}) => (this.estados = data));
+                }
             },
             crearCiudad(){
                 this.$Progress.start();
@@ -192,6 +214,13 @@
             this.cargarEstados();
             Fire.$on('AfterCreate',()=>{
                 this.cargarCiudades();
+            });
+            Fire.$on('searching',()=>{
+                let query = this.$parent.search;
+                axios.get('api/findCity?q='+query)
+                .then((data)=>{
+                    this.ciudades = data.data;
+                })
             });
         }
     }

@@ -17,7 +17,7 @@ class EstadoController extends Controller
     }
 
     public function index(){
-        $estados = Estado::orderBy('id', 'ASC')->get();
+        $estados = Estado::orderBy('id', 'ASC')->paginate(10);
         return $estados;
     }
 
@@ -78,5 +78,16 @@ class EstadoController extends Controller
         $data = "[".$fecha."] El usuario " .$user->usuario. " eliminó el estado " .$estado->nombre. " que contenía los siguientes datos: " .$estado;
         Storage::append('logs.txt', $data);
         return['message' => 'Estado Eliminado'];
+    }
+
+    public function search(){
+        if ($search = \Request::get('q')) {
+            $estados = Estado::where(function($query) use ($search){
+                $query->where('nombre','LIKE',"%$search%");
+            })->orderBy('id', 'ASC')->paginate(10);
+        }else{
+            $estados = Estado::orderBy('id', 'ASC')->paginate(10);
+        }
+        return $estados;
     }
 }

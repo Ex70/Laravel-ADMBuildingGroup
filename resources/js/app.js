@@ -13,6 +13,8 @@ import swal from 'sweetalert2'
 window.swal = swal;
 import Print from 'vue-print-nb'
 import VueHtmlToPaper from 'vue-html-to-paper'
+import html2pdf from 'html2pdf.js'
+Vue.use(html2pdf);
 // Global instruction
 Vue.use(Print);
 export const bus = new Vue();
@@ -92,9 +94,9 @@ let routes = [
     { path: '/empresas', component: require('./components/Empresas.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },
-    { path: '/estados', component: require('./components/Estados.vue').default },
+    { path: '/dynamic', component: require('./components/Estados.vue').default },
     { path: '/modulos', component: require('./components/Modulos.vue').default },
-    { path: '/unidades', component: require('./components/Unidades.vue').default },
+    { path: '/dynamic', component: require('./components/Unidades.vue').default },
     { path: '/ciudades', component: require('./components/Ciudades.vue').default },
     { path: '/accesos', component: require('./components/Accesos.vue').default },
     { path: '/pptobase/importar', component: require('./components/pptobase/importar.vue').default },
@@ -123,7 +125,8 @@ let routes = [
     { path: '/reportes/por-obra', component: require('./components/reportes/por-obra.vue').default },
     { path: '/reportes/por-cliente', component: require('./components/reportes/por-cliente.vue').default },
     { path: '/reportes/generales', component: require('./components/reportes/generales.vue').default },
-    { path: '/dynamic', component: require('./components/Dynamic.vue').default },
+    { path: '/unidades', component: require('./components/dinamicos/Unidades.vue').default },
+    { path: '/estados', component: require('./components/dinamicos/Estados.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ]
 
@@ -193,7 +196,7 @@ const app = new Vue({
     methods:{
         searchit: _.debounce(()=>{
             Fire.$emit('searching');
-        },1000),
+        },750),
         printme() {
             console.log("SSS");
             window.print();

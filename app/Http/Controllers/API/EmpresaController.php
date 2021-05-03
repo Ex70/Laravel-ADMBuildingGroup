@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 
 class EmpresaController extends Controller{
     public function index(){
-        $empresas = Empresa::orderBy('id', 'ASC')->get();
+        $empresas = Empresa::orderBy('id', 'ASC')->paginate(10);
         return $empresas;
     }
 
@@ -113,5 +113,17 @@ class EmpresaController extends Controller{
         $data = "[".$fecha."] El usuario " .$user->usuario. " eliminó la empresa " .$empresa->nombre. " que contenía los siguientes datos: " .$empresa;
         Storage::append('logs.txt', $data);
         return['message' => 'Empresa Eliminada'];
+    }
+
+    public function search(){
+        if ($search = \Request::get('q')) {
+            $empresas = Empresa::where(function($query) use ($search){
+                $query->where('nombre','LIKE',"%$search%")
+                        ->orWhere('rfc','LIKE',"%$search%");
+            })->orderBy('id', 'ASC')->paginate(10);
+        }else{
+            $empresas = Empresa::orderBy('id', 'ASC')->paginate(10);
+        }
+        return $empresas;
     }
 }

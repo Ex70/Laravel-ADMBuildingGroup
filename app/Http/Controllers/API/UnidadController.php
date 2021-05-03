@@ -70,14 +70,13 @@ class UnidadController extends Controller{
     }
 
     public function search(){
-
         if ($search = \Request::get('q')) {
             $unidades = Unidad::where(function($query) use ($search){
                 $query->where('descripcion','LIKE',"%$search%")
                         ->orWhere('clave','LIKE',"%$search%");
-            })->paginate(10);
+            })->orderBy('id', 'ASC')->paginate(10);
         }else{
-            $unidades = Unidad::latest()->paginate(10);
+            $unidades = Unidad::orderBy('id', 'ASC')->paginate(10);
         }
         return $unidades;
     }

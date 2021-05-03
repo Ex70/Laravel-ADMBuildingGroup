@@ -463,8 +463,8 @@
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link to="/unidades" class="nav-link">
-                                        <i class="nav-icon fas fa-weight-hanging"></i>
+                                    <router-link to="/unidades" :user="{{ Auth::user() }}" class="nav-link">
+                                        <i class="fas fa-users nav-icon"></i>
                                         <p>Unidades</p>
                                     </router-link>
                                 </li>
@@ -472,12 +472,6 @@
                                     <router-link to="/users" :user="{{ Auth::user() }}" class="nav-link">
                                         <i class="fas fa-users nav-icon"></i>
                                         <p>Usuarios</p>
-                                    </router-link>
-                                </li>
-                                <li class="nav-item">
-                                    <router-link to="/dynamic" :user="{{ Auth::user() }}" class="nav-link">
-                                        <i class="fas fa-users nav-icon"></i>
-                                        <p>Prueba</p>
                                     </router-link>
                                 </li>
                             </ul>

@@ -13,7 +13,7 @@
             <div class="card-body">
                 <form role="form">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12"> 
                             <div v-for="(modulo, c) in modulos" v-bind:key="c">
                                 <div v-if="modulos[c+1]">
                                     <div v-if="modulo['id_usuario'] !== modulos[c+1].id_usuario && modulo['clave'] == modulos[c+1].clave">
@@ -63,10 +63,11 @@
                                         </div>
                                     </div>
                                     <div else></div>
+                                
                                 </div>
                                 <div v-else>
-                                    <div v-if="modulo['clave'] !== clave">
-                                        <div class="custom-control" v-if="user.id==modulo.id_usuario && usuario==user.id">
+                                     <div v-if="modulo['clave'] !== clave">
+                                         <div class="custom-control" v-if="user.id==modulo.id_usuario && usuario==user.id">
                                             <label v-if="modulo.clave.length==2 && modulo.vista=='0000'">{{modulo.nombre}}</label>
                                             <label v-else-if="modulo.vista=='0000'">&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
                                             <label v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{modulo.nombre}}</label>
@@ -87,7 +88,8 @@
                                             <input v-show="modulo.vista!='0000'" :id=concatenar+modulo.id type="checkbox" :checked="modulo.id_usuario==usuario ? checked=true : checked=false">
                                             <br/><br/>
                                         </div>
-                                    </div>
+                                     </div>
+                                
                                 </div>
                                 <div style="display:none">{{clave = modulo.clave}}</div>
                             </div>
@@ -99,47 +101,6 @@
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Agregar Ciudad </h5>
-                        <h5 class="modal-title" v-show="editmode" id="addNewLabel">Actualizar información</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form @submit.prevent="editmode ? actualizarCiudad() : crearAccesos()">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <input v-model="form.nombre" type="text" name="nombre" placeholder="Nombre" id="nombre"
-                                    class="form-control" :class="{ 'is-invalid': form.errors.has('nombre') }">
-                                <has-error :form="form" field="nombre"></has-error>
-                            </div>
-                            <div class="form-group">
-                                <input v-model="form.clave" type="text" name="clave" placeholder="Clave" id="clave"
-                                    class="form-control" :class="{ 'is-invalid': form.errors.has('clave') }">
-                                <has-error :form="form" field="clave"></has-error>
-                            </div>
-                            <div class="form-group">
-                                <!-- <label for="name">Estado</label> -->
-                                <select class="form-control" name="id_estado" style="width: 100%;" type="number" 
-                                    v-model="form.id_estado" :class="{ 'is-invalid': form.errors.has('id_estado') }">
-                                    <option value="">Seleccione estado</option>
-                                    <option v-for="(estado, c) in estados" v-bind:key="c" :value="estado.id">{{estado.nombre}}</option>
-                                </select>
-                                <has-error :form="form" field="id_estado"></has-error>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button v-show="editmode" type="submit" class="btn btn-success">Actualizar</button>
-                            <button v-show="!editmode" type="submit" class="btn btn-primary">Crear</button>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
@@ -174,89 +135,23 @@
             }
         },
         methods:{
-            seleccionUsuario2(event){
-                console.log(this.form.id_usuario);
-                axios.get("api/modulosAccesos2"+this.form.id_usuario).then(({data}) => (this.modulos = data));
-                console.log(this.modulos);
+            getUser(id) {
+                return this.modulos[id].clave;
             },
             seleccionUsuario(event) {
                 console.log(event.target.value);
                 axios.get("api/modulosAccesos2/"+this.form.id_usuario).then(({data}) => (this.modulos = data));
                 this.usuario = this.form.id_usuario;
             },
-            claveCorta(cadena){
-                let indice = cadena.indexOf("-");
-                return cadena.substring(0, indice);
-            },
-            actualizarCiudad(){
-                this.$Progress.start();
-                this.form.put('api/ciudad/'+this.form.id)
-                .then(()=>{
-                    $('#addNew').modal('hide');
-                    swal.fire(
-                        '¡Actualizado!',
-                        'La información ha sido actualizada.',
-                        'success'
-                    )
-                    this.$Progress.finish();
-                    this.form.reset();
-                    Fire.$emit('AfterCreate');
-                })
-                .catch(()=>{
-                    this.$Progress.fail();
-                    this.form.fill(estado);
-                });
-            },
-            editarCiudad(ciudad){
-                this.editmode = true;
-                ciudad.clave = this.claveCorta(ciudad.clave);
-                this.form.reset();
-                $('#addNew').modal('show');
-                this.form.fill(ciudad);
-            },
-            nuevoModal(){
-                this.editmode = false;
-                this.form.reset();
-                $('#addNew').modal('show');
-            },
-            borrarCiudad(id){
-                swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "No podrás revertir esto!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, Eliminar!'
-                    }).then((result) => {
-                        if(result.value){
-                            this.form.delete('api/ciudad/'+id).then(()=>{
-                                swal.fire(
-                                    '¡Eliminado!',
-                                    'La ciudad ha sido eliminada.',
-                                    'success'
-                                )
-                                Fire.$emit('AfterCreate');
-                            }).catch(()=>{
-                                swal("Error", "Algo malo sucedió.","warning");
-                            });
-                        }
-                })
-            },
-            cargarAccesos(){
-                axios.get("api/acceso").then(({data}) => (this.accesos = data.data));
-            },
-            cargarEstados(){
-                axios.get("api/estado").then(({data}) => (this.estados = data));
-                console.log(this.estados);
-            },
             cargarUsuarios(){
                 axios.get("api/user").then(({data}) => (this.usuarios = data));
                 console.log(this.usuarios);
             },
             cargarModulos(){
-                axios.get("api/modulosAccesos").then(({data}) => (this.modulos = data));
                 axios.get("api/modulo").then(({data}) => (this.contadorModulos = data));
+            },
+            cargarModulosAccesos(){
+                axios.get("api/modulosAccesos").then(({data}) => (this.modulos = data));
             },
             crearAccesos(){
                 var contador = this.contadorModulos.length;
@@ -300,13 +195,14 @@
             }
         },
         mounted() {
-            this.cargarModulos();
-            this.cargarAccesos();
-            this.cargarEstados();
             this.cargarUsuarios();
-            Fire.$on('AfterCreate',()=>{
-                this.cargarAccesos();
-            });
+            this.cargarModulos();
+            this.cargarModulosAccesos();
+            //this.cargarAccesos();
+            //this.cargarEstados();
+            // Fire.$on('AfterCreate',()=>{
+            //     this.cargarAccesos();
+            // });
         },
         computed: {
             concatenar(){

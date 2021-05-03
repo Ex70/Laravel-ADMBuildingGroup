@@ -10,10 +10,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Unidades</h3>
+                        <h3 class="card-title">Unidades - {{id_usuario}}</h3>
                         <div class="card-tools">
-                            <button @click="switchComponent('dashboard')"
-      :disabled="currentComp === 'dashboard'" class="btn btn-secondary" >Generar reporte  <i class="fas fa-file-alt"></i></button>
+                            <button @click="switchComponent('reporte')" :disabled="currentComp === 'reporte'" class="btn btn-secondary" >Generar reporte  <i class="fas fa-file-alt"></i></button>
                             <button class="btn btn-success" @click="nuevoModal">Agregar unidad  <i class="fas fa-plus fa-wf"></i></button>
                         </div>
                     </div>
@@ -110,6 +109,7 @@
                 required: true
             }
         },
+        props: ['id_usuario'],
         methods:{
             switchComponent(comp) {
                 bus.$emit('switchComp', comp);
@@ -203,7 +203,7 @@
                 this.cargarUnidades();
             });
             Fire.$on('searching',()=>{
-                let query = this.$parent.search;
+                let query = this.$parent.$parent.search;
                 axios.get('api/findUnity?q='+query)
                 .then((data)=>{
                     this.unidades = data.data;

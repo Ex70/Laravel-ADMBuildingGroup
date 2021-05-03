@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ModuloController extends Controller{
     public function index(){
-        $modulos = Modulo::orderBy('clave', 'ASC')->get();
+        $modulos = Modulo::orderBy('clave', 'ASC')->paginate(10);
         return $modulos;
     }
 
@@ -26,7 +26,7 @@ class ModuloController extends Controller{
         if($id==$Usuario){
             $results = DB::select('select modulos.*,accesos.id_usuario from modulos JOIN accesos ON accesos.id_modulo = modulos.id where id_usuario in (?) order by clave,id_usuario desc', [$id]);
         }else{
-            $results = DB::select('select modulos.*,accesos.id_usuario from modulos JOIN accesos ON accesos.id_modulo = modulos.id where id_usuario in (?,1) order by clave,id_usuario desc', [$id]);
+            $results = DB::select('select modulos.*, accesos.id_usuario from modulos JOIN accesos ON accesos.id_modulo = modulos.id where id_usuario in (?,1)  order by clave,id_usuario desc', [$id]);
         }
         return $results;
     }
@@ -98,5 +98,16 @@ class ModuloController extends Controller{
         $data = "[".$fecha."] El usuario " .$user->usuario. " eliminó el módulo " .$modulo->nombre. " que contenía los siguientes datos: " .$modulo;
         Storage::append('logs.txt', $data);
         return['message' => 'Modulo Eliminado'];
+    }
+
+    public function search(){
+        if ($search = \Request::get('q')) {
+            $modulos = Modulo::where(function($query) use ($search){
+                $query->where('nombre','LIKE',"%$search%");
+            })->orderBy('id', 'ASC')->paginate(10);
+        }else{
+            $modulos = Modulo::orderBy('id', 'ASC')->paginate(10);
+        }
+        return $modulos;
     }
 }

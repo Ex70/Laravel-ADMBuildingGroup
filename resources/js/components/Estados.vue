@@ -1,6 +1,12 @@
 <template>
-    <div class="container">
-        <div class="row mt-5">
+    <div class="container-fluid">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-1">
+                </div>
+            </div>
+        </section>
+        <div class="row mt-10" v-if="$gate.isAdmin()">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -19,7 +25,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="estado in estados" :key="estado.id">
+                                <tr v-for="estado in estados.data" :key="estado.id">
                                     <td>{{estado.id}}</td>
                                     <td>{{estado.clave | upText}}</td>
                                     <td>{{estado.nombre | upText}}</td>
@@ -36,8 +42,14 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer">
+                        <pagination :data="estados" @pagination-change-page="getResults"></pagination>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div v-if="!$gate.isAdmin()">
+            <not-found></not-found>
         </div>
         <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -88,6 +100,15 @@
             }
         },
         methods:{
+            switchComponent(comp) {
+                bus.$emit('switchComp', comp);
+            },
+            getResults(page = 1) {
+                axios.get('api/estado?page=' + page)
+                    .then(response => {
+                        this.estados = response.data;
+                    });
+            },
             actualizarEstado(){
                 this.$Progress.start();
                 this.form.put('api/estado/'+this.form.id)
@@ -143,7 +164,9 @@
                 })
             },
             cargarEstados(){
-                axios.get("api/estado").then(({data}) => (this.estados = data));
+                if(this.$gate.isAdmin){
+                    axios.get("api/estado").then(({data}) => (this.estados = data));
+                }
             },
             crearUsuario(){
                 this.$Progress.start();
@@ -166,6 +189,13 @@
             this.cargarEstados();
             Fire.$on('AfterCreate',()=>{
                 this.cargarEstados();
+            });
+            Fire.$on('searching',()=>{
+                let query = this.$parent.$parent.search;
+                axios.get('api/findState?q='+query)
+                .then((data)=>{
+                    this.estados = data.data;
+                })
             });
         }
     }
