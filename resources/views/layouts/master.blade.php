@@ -30,8 +30,7 @@
                     </li>
                 </ul>
                 <!-- SEARCH FORM -->
-                <!-- <form class="form-inline ml-3"> -->
-                    <div class="ml-3">
+                <div class="ml-3">
                     <div class="input-group input-group-sm ml-3">
                         <input class="form-control form-control-navbar" @keyup="searchit" v-model="search" type="search" placeholder="Buscar" aria-label="Search">
                         <div class="input-group-append">
@@ -40,8 +39,7 @@
                             </button>
                         </div>
                     </div>
-                    </div>
-                <!-- </form> -->
+                </div>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -75,17 +73,11 @@
                 <div class="sidebar">
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
                             <li class="nav-item">
                                 <router-link class="nav-link" :to="{ name: 'idEmpresa', params: {empresa: {{Session::get('empresa')}}}}">
                                     <i class="nav-icon fas fa-tachometer-alt blue"></i>
                                     <p>Escritorio</p>
                                 </router-link>
-                                <!-- <router-link to="/dashboard" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt blue"></i>
-                                    <p>Escritorio</p>
-                                </router-link> -->
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
@@ -478,12 +470,6 @@
                         </li>
                             @endcan
                             <li class="nav-item">
-                                <!-- <a class="nav-link" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                    <i class="nav-icon fas fa-power-off red"></i>
-                                    <p>{{ __('Cerrar sesión') }}</p>
-                                </a> -->
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -500,20 +486,12 @@
                         </div>
                     </div>
                 </div>
-                <aside class="control-sidebar control-sidebar-dark">
-                    <!-- Control sidebar content goes here -->
-                    <div class="p-3">
-                    <h5>Title</h5>
-                    <p>Sidebar content</p>
-                    </div>
-                </aside>
-                <!-- /.control-sidebar -->
                 <!-- Main Footer -->
                 <footer class="main-footer">
                     <!-- To the right -->
                     <div class="float-right d-none d-sm-inline"><strong><a href="#">Grupo Constructor ADM</a>.</strong></div>
                     <!-- Default to the left -->
-                    <strong>Copyright &copy; 2021. Empresa: {{Session::get('empresa')}}  {{Session::get('accesos')}}</strong>
+                    <strong>Copyright &copy; 2021. Empresa: {{Session::get("empresa.nombre")}}  {{Session::get('accesos')}}</strong>
                 </footer>
             </div>
             <!-- ./wrapper -->

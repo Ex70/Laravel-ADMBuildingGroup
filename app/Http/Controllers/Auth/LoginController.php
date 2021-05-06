@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Acceso;
+use App\Empresa;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -63,7 +64,9 @@ class LoginController extends Controller
         $fieldType = filter_var($request->usuario, FILTER_VALIDATE_EMAIL) ? 'email' : 'usuario';
         if(auth()->attempt(array($fieldType => $input['usuario'], 'password' => $input['password'])))
         {
-            Session::put('empresa',$request['empresa_id']);
+            $empresa = Empresa::find($request['empresa_id']);
+            print_r($empresa);  
+            Session::put('empresa',$empresa);
             //return view('home',compact('empresa'));
             return redirect()->route('home');
             // ->with( [ 'empresa' => $request['empresa_id']] );;

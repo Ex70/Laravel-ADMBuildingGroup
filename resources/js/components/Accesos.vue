@@ -198,7 +198,9 @@
         },
         mounted() {
             // this.cargarUsuarios();
-            this.cargarModulos();
+            
+            //this.cargarModulos();
+            
             // this.cargarModulosAccesos();
 
             //this.cargarAccesos();
@@ -206,6 +208,21 @@
             // Fire.$on('AfterCreate',()=>{
             //     this.cargarAccesos();
             // });
+
+            var that = this    
+            axios.all([
+            axios.get('api/user'),
+            axios.get('api/modulo'),
+            axios.get('api/modulosAccesos')
+            ])
+                .then(
+                axios.spread(
+                    function (user, mod,access) {
+                    that.usuarios = user.data;
+                    that.contadorModulos = mod.data;
+                    that.modulos = access.data;
+                    }
+            ))
         },
         computed: {
             concatenar(){

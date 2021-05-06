@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Unidades - {{id_usuario}}</h3>
+                        <h3 class="card-title">Unidades</h3>
                         <div class="card-tools">
                             <button @click="switchComponent('reporte')" :disabled="currentComp === 'reporte'" class="btn btn-secondary" >Generar reporte  <i class="fas fa-file-alt"></i></button>
                             <button class="btn btn-success" @click="nuevoModal">Agregar unidad  <i class="fas fa-plus fa-wf"></i></button>
@@ -23,6 +23,7 @@
                                     <th>ID</th>
                                     <th>Clave</th>
                                     <th>Descripción</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
